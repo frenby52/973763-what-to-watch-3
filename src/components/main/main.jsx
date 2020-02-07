@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
 const Main = (props) => {
   const {title, genre, releaseDate, titlesList} = props;
@@ -98,18 +99,7 @@ const Main = (props) => {
         </ul>
 
         <div className="catalog__movies-list">
-          {titlesList.map((titleItem, i) => {
-            return (
-              <article className="small-movie-card catalog__movies-card" key={titleItem + i}>
-                <div className="small-movie-card__image">
-                  <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175"/>
-                </div>
-                <h3 className="small-movie-card__title">
-                  <a className="small-movie-card__link" href="movie-page.html">{titleItem}</a>
-                </h3>
-              </article>
-            );
-          })}
+          {titlesList.map((titleItem) => <SmallMovieCard title={titleItem} key={titleItem}/>)}
         </div>
 
         <div className="catalog__more">
@@ -138,7 +128,7 @@ Main.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.string.isRequired,
-  titlesList: PropTypes.array.isRequired,
+  titlesList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default Main;
