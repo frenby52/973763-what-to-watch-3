@@ -6,7 +6,7 @@ const titleItem = `Fantastic Beasts`;
 
 it(`SmallMovieCard component should render correct`, () => {
   const tree = renderer
-    .create(<SmallMovieCard title={titleItem} />)
+    .create(<SmallMovieCard title={titleItem} onTitleClick={() => {}} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

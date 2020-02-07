@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
+const smallMovieCardTitleClickHandler = () => {};
+
 const Main = (props) => {
   const {title, genre, releaseDate, titlesList} = props;
 
@@ -99,7 +101,7 @@ const Main = (props) => {
         </ul>
 
         <div className="catalog__movies-list">
-          {titlesList.map((titleItem) => <SmallMovieCard title={titleItem} key={titleItem}/>)}
+          {titlesList.map((titleItem) => <SmallMovieCard title={titleItem} onTitleClick={smallMovieCardTitleClickHandler} key={titleItem}/>)}
         </div>
 
         <div className="catalog__more">
