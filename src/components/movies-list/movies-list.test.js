@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import MoviesList from "./movies-list";
 
 const films = [
   {
@@ -53,9 +53,9 @@ const films = [
   },
 ];
 
-it(`App render correct`, () => {
+it(`MoviesList component should render correct`, () => {
   const tree = renderer
-    .create(<App films={films} />)
+    .create(<MoviesList films={films} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

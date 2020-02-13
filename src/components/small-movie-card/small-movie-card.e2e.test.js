@@ -7,15 +7,31 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-const titleItem = `Fantastic Beasts`;
+const film = {
+  title: `The Grand Budapest Hotel`,
+  image: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+  genre: `Drama`,
+  releaseDate: `2014`,
+};
 
-it(`SmallMovieCard title should be clicked`, () => {
-  const smallMovieCardTitleClickHandler = jest.fn();
+describe(`SmallMovieCard group`, () => {
+  const titleClickHandler = jest.fn();
+  const cardMouseEnterHandler = jest.fn();
 
-  const smallMovieCard = shallow(<SmallMovieCard title={titleItem} onTitleClick={smallMovieCardTitleClickHandler} />);
+  const smallMovieCard = shallow(<SmallMovieCard film={film} onTitleClick={titleClickHandler} onCardMouseEnter={cardMouseEnterHandler} />);
 
-  const smallMovieCardTitle = smallMovieCard.find(`.small-movie-card__title`);
+  it(`SmallMovieCard click on title is correct`, () => {
+    const smallMovieCardTitle = smallMovieCard.find(`.small-movie-card__title`);
 
-  smallMovieCardTitle.simulate(`click`);
-  expect(smallMovieCardTitleClickHandler).toHaveBeenCalledTimes(1);
+    smallMovieCardTitle.simulate(`click`);
+    expect(titleClickHandler).toHaveBeenCalledTimes(1);
+  });
+
+  it(`SmallMovieCard mouseenter is correct`, () => {
+    smallMovieCard.simulate(`mouseenter`);
+    expect(cardMouseEnterHandler).toHaveBeenCalledTimes(1);
+    // expect(cardMouseEnterHandler.mock.calls[0][0]).toMatchObject(film);
+    expect(cardMouseEnterHandler).toBeCalledWith(film);
+  });
 });
+
