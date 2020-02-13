@@ -17,8 +17,9 @@ const film = {
 describe(`SmallMovieCard group`, () => {
   const titleClickHandler = jest.fn();
   const cardMouseEnterHandler = jest.fn();
+  const cardMouseLeaveHandler = jest.fn();
 
-  const smallMovieCard = shallow(<SmallMovieCard film={film} onTitleClick={titleClickHandler} onCardMouseEnter={cardMouseEnterHandler} />);
+  const smallMovieCard = shallow(<SmallMovieCard film={film} onTitleClick={titleClickHandler} onCardMouseEnter={cardMouseEnterHandler} onCardMouseLeave={cardMouseLeaveHandler}/>);
 
   it(`SmallMovieCard click on title is correct`, () => {
     const smallMovieCardTitle = smallMovieCard.find(`.small-movie-card__title`);
@@ -32,6 +33,11 @@ describe(`SmallMovieCard group`, () => {
     expect(cardMouseEnterHandler).toHaveBeenCalledTimes(1);
     // expect(cardMouseEnterHandler.mock.calls[0][0]).toMatchObject(film);
     expect(cardMouseEnterHandler).toBeCalledWith(film);
+  });
+
+  it(`SmallMovieCard mouseleave is correct`, () => {
+    smallMovieCard.simulate(`mouseleave`);
+    expect(cardMouseLeaveHandler).toHaveBeenCalledTimes(1);
   });
 });
 
