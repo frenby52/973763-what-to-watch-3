@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import MoviePage from "./movie-page";
 
 const film = {
   id: 0,
@@ -17,9 +17,9 @@ const film = {
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
 };
 
-it(`SmallMovieCard component should render correct`, () => {
+it(`MoviePage component should render correct`, () => {
   const tree = renderer
-    .create(<SmallMovieCard film={film} onCardClick={() => {}} onCardMouseEnter={() => {}} onCardMouseLeave={() => {}}/>)
+    .create(<MoviePage film={film}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
