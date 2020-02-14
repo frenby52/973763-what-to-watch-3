@@ -1,5 +1,6 @@
 const films = [
   {
+    id: 0,
     title: `The Grand Budapest Hotel`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Drama`,
@@ -13,6 +14,7 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
   },
   {
+    id: 1,
     title: `Bohemian Rhapsody`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Comedy`,
@@ -26,6 +28,7 @@ const films = [
     starring: [`actor`, `Edward Norton`, `Jude Law`, `Willem Dafoe`]
   },
   {
+    id: 2,
     title: `Macbeth`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Horror`,
@@ -39,6 +42,7 @@ const films = [
     starring: [`Bill Murray`, `actor`, `Jude Law`, `Willem Dafoe`]
   },
   {
+    id: 3,
     title: `Aviator`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Comedy`,
@@ -52,6 +56,7 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `actor`, `Willem Dafoe`]
   },
   {
+    id: 4,
     title: `We need to talk about Kevin`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Crime`,
@@ -65,6 +70,7 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `actor`]
   },
   {
+    id: 5,
     title: `What We Do in the Shadows`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Drama`,
@@ -78,6 +84,7 @@ const films = [
     starring: [`actor`, `actor2`, `Jude Law`, `Willem Dafoe`]
   },
   {
+    id: 6,
     title: `Revenant`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Comedy`,
@@ -91,6 +98,7 @@ const films = [
     starring: [`Bill Murray`, `actor`, `actor2`, `Willem Dafoe`]
   },
   {
+    id: 7,
     title: `Johnny English`,
     previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     genre: `Sci-Fi`,

@@ -6,7 +6,6 @@ export default class MoviesList extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this._handleTitleClick = this._handleTitleClick.bind(this);
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
     this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
 
@@ -16,16 +15,14 @@ export default class MoviesList extends React.PureComponent {
   }
 
   render() {
-    const {films} = this.props;
+    const {films, onCardClick} = this.props;
 
     return (
       <div className="catalog__movies-list">
-        {films.map((film) => <SmallMovieCard film={film} onTitleClick={this._handleTitleClick} onCardMouseEnter={this._handleCardMouseEnter} onCardMouseLeave={this._handleCardMouseLeave} key={film.title}/>)}
+        {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} onCardMouseEnter={this._handleCardMouseEnter} onCardMouseLeave={this._handleCardMouseLeave} key={film.title}/>)}
       </div>
     );
   }
-
-  _handleTitleClick() {}
 
   _handleCardMouseEnter(film) {
     this.setState({
@@ -42,6 +39,7 @@ export default class MoviesList extends React.PureComponent {
 
 MoviesList.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
@@ -53,5 +51,6 @@ MoviesList.propTypes = {
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-  })).isRequired
+  })).isRequired,
+  onCardClick: PropTypes.func.isRequired
 };

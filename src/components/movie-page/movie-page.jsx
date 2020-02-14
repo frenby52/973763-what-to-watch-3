@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {getRatingLevel} from "../../utils";
 
 const MoviePage = (props) => {
   const {film} = props;
@@ -81,7 +82,7 @@ const MoviePage = (props) => {
             <div className="movie-rating">
               <div className="movie-rating__score">{ratingScore}</div>
               <p className="movie-rating__meta">
-                <span className="movie-rating__level">Very good</span>
+                <span className="movie-rating__level">{getRatingLevel(ratingScore)}</span>
                 <span className="movie-rating__count">{ratingCount} ratings</span>
               </p>
             </div>
@@ -159,6 +160,7 @@ const MoviePage = (props) => {
 
 MoviePage.propTypes = {
   film: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,

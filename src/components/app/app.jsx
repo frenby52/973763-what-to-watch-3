@@ -7,6 +7,12 @@ import MoviePage from "../movie-page/movie-page.jsx";
 export default class App extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    this._handleSmallMovieCardClick = this._handleSmallMovieCardClick.bind(this);
+
+    this.state = {
+      selectedMovieId: null
+    };
   }
 
   render() {
@@ -28,7 +34,17 @@ export default class App extends React.PureComponent {
 
   _renderApp() {
     const {title, genre, releaseDate, films} = this.props;
-    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films}/>;
+    const {selectedMovieId} = this.state;
+
+    if (selectedMovieId !== null) {
+      return <MoviePage film={films[selectedMovieId]}/>;
+    }
+
+    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
+  }
+
+  _handleSmallMovieCardClick(selectedMovieId) {
+    this.setState({selectedMovieId});
   }
 }
 
@@ -37,6 +53,7 @@ App.propTypes = {
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
