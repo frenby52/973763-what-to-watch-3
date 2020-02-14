@@ -1,14 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
+import MoviePage from "../movie-page/movie-page.jsx";
 
-const App = (props) => {
-  const {films} = props;
+export default class App extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
-  return (
-    <Main films={films}/>
-  );
-};
+  render() {
+    const {films} = this.props;
+
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/">
+            {this._renderApp()}
+          </Route>
+          <Route exact path="/dev-film">
+            <MoviePage films={films}/>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+
+  _renderApp() {
+    const {films} = this.props;
+    return <Main films={films}/>;
+  }
+}
 
 App.propTypes = {
   films: PropTypes.arrayOf(PropTypes.shape({
@@ -18,5 +40,3 @@ App.propTypes = {
     releaseDate: PropTypes.string.isRequired,
   })).isRequired
 };
-
-export default App;
