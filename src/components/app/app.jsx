@@ -15,6 +15,21 @@ export default class App extends React.PureComponent {
     };
   }
 
+  _renderApp() {
+    const {title, genre, releaseDate, films} = this.props;
+    const {selectedMovieId} = this.state;
+
+    if (selectedMovieId !== null) {
+      return <MoviePage film={films[selectedMovieId]}/>;
+    }
+
+    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
+  }
+
+  _handleSmallMovieCardClick(selectedMovieId) {
+    this.setState({selectedMovieId});
+  }
+
   render() {
     const {films} = this.props;
 
@@ -30,21 +45,6 @@ export default class App extends React.PureComponent {
         </Switch>
       </BrowserRouter>
     );
-  }
-
-  _renderApp() {
-    const {title, genre, releaseDate, films} = this.props;
-    const {selectedMovieId} = this.state;
-
-    if (selectedMovieId !== null) {
-      return <MoviePage film={films[selectedMovieId]}/>;
-    }
-
-    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
-  }
-
-  _handleSmallMovieCardClick(selectedMovieId) {
-    this.setState({selectedMovieId});
   }
 }
 

@@ -32,6 +32,7 @@ describe(`SmallMovieCard group`, () => {
   it(`SmallMovieCard click on card/title is correct`, () => {
     smallMovieCard.simulate(`click`, {preventDefault() {}});
     expect(cardClickHandler).toHaveBeenCalledTimes(1);
+    expect(cardClickHandler.mock.calls[0][0]).toEqual(film.id);
   });
 
   it(`SmallMovieCard mouseenter is correct`, () => {

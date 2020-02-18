@@ -14,16 +14,6 @@ export default class MoviesList extends React.PureComponent {
     };
   }
 
-  render() {
-    const {films, onCardClick} = this.props;
-
-    return (
-      <div className="catalog__movies-list">
-        {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} onCardMouseEnter={this._handleCardMouseEnter} onCardMouseLeave={this._handleCardMouseLeave} key={film.title}/>)}
-      </div>
-    );
-  }
-
   _handleCardMouseEnter(film) {
     this.setState({
       activeSmallMovieCard: film
@@ -34,6 +24,16 @@ export default class MoviesList extends React.PureComponent {
     this.setState({
       activeSmallMovieCard: null
     });
+  }
+
+  render() {
+    const {films, onCardClick} = this.props;
+
+    return (
+      <div className="catalog__movies-list">
+        {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} onCardMouseEnter={this._handleCardMouseEnter} onCardMouseLeave={this._handleCardMouseLeave} key={film.title}/>)}
+      </div>
+    );
   }
 }
 
