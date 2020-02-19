@@ -268,7 +268,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -294,7 +293,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -320,7 +318,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -346,7 +343,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -372,7 +368,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -398,7 +393,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -424,7 +418,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>
@@ -450,7 +443,6 @@ Array [
           >
             <video
               height="175"
-              muted={true}
               width="280"
             />
           </div>

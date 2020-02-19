@@ -57,6 +57,7 @@ export default class SmallMovieCard extends React.PureComponent {
             src={previewSrc}
             isPlaying={this.state.isPlaying}
             previewImage={`img/${previewImage}`}
+            muted={true}
           />
         </div>
         <h3 className="small-movie-card__title">

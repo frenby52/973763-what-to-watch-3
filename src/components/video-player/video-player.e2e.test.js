@@ -1,6 +1,11 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import Enzyme, {mount} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 import VideoPlayer from "./video-player";
+
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 const film = {
   id: 0,
@@ -18,17 +23,23 @@ const film = {
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
-it(`VideoPlayer component should render correct`, () => {
-  const tree = renderer.create(<VideoPlayer
-    src={film.previewSrc}
-    isPlaying={false}
-    previewImage={film.previewImage}
-    muted={true}
-  />, {
-    createNodeMock: () => {
-      return {};
-    }
-  }).toJSON();
+const getPlayer = (isPlaying) => {
+  return mount(
+      <VideoPlayer
+        src={film.previewSrc}
+        isPlaying={isPlaying}
+        previewImage={film.previewImage}
+        muted={true}
+      />
+  );
+};
 
-  expect(tree).toMatchSnapshot();
+describe(`VideoPlayer has pause and play state`, () => {
+  it(`VideoPlayer state is true when playing`, () => {
+    expect(getPlayer(true).state().isPlaying).toBe(true);
+  });
+
+  it(`VideoPlayer state is false when pause`, () => {
+    expect(getPlayer(false).state().isPlaying).toBe(false);
+  });
 });
