@@ -137,6 +137,7 @@ Main.propTypes = {
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    previewSrc: PropTypes.string.isRequired,
   })).isRequired,
   onCardClick: PropTypes.func.isRequired
 };

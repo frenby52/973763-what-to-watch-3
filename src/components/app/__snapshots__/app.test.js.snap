@@ -266,10 +266,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="The Grand Budapest Hotel"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -293,10 +292,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Bohemian Rhapsody"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -320,10 +318,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Macbeth"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -347,10 +344,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Aviator"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -374,10 +370,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="We need to talk about Kevin"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -401,10 +396,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="What We Do in the Shadows"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -428,10 +422,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Revenant"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
@@ -455,10 +448,9 @@ Array [
           <div
             className="small-movie-card__image"
           >
-            <img
-              alt="Johnny English"
+            <video
               height="175"
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              muted={true}
               width="280"
             />
           </div>
