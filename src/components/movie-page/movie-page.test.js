@@ -137,7 +137,11 @@ const similarFilms = films.slice(0, 4);
 
 it(`MoviePage component should render correct`, () => {
   const tree = renderer
-    .create(<MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}}/>)
+    .create(<MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}}/>, {
+      createNodeMock: () => {
+        return {};
+      }
+    })
     .toJSON();
 
   expect(tree).toMatchSnapshot();

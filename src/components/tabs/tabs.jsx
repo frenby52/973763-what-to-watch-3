@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const tabs = [`overview`, `details`, `reviews`];
+const tabs = [`Overview`, `Details`, `Reviews`];
 
 const Tabs = (props) => {
   const {onTabClick, activeTab} = props;
