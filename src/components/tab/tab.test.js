@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Tab from "./Tab";
+import Tab from "./tab";
 
 const film = {
   id: 0,

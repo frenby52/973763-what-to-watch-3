@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Tabs from "./Tabs";
+import Tabs from "./tabs";
 
 it(`Tabs component should render correct`, () => {
   const tree = renderer
