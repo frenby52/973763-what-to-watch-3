@@ -4,6 +4,8 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 
+const SIMILAR_FILMS_COUNT = 4;
+
 export default class App extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -13,6 +15,22 @@ export default class App extends React.PureComponent {
     this.state = {
       selectedMovieId: null
     };
+  }
+
+  _renderApp() {
+    const {title, genre, releaseDate, films} = this.props;
+    const {selectedMovieId} = this.state;
+
+    if (selectedMovieId !== null) {
+      const similarFilms = films.filter((film) => film.genre === films[selectedMovieId].genre && film.id !== selectedMovieId).slice(0, SIMILAR_FILMS_COUNT);
+      return <MoviePage film={films[selectedMovieId]} similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
+    }
+
+    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
+  }
+
+  _handleSmallMovieCardClick(selectedMovieId) {
+    this.setState({selectedMovieId});
   }
 
   render() {
@@ -25,26 +43,11 @@ export default class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage film={films[0]}/>
+            <MoviePage film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
           </Route>
         </Switch>
       </BrowserRouter>
     );
-  }
-
-  _renderApp() {
-    const {title, genre, releaseDate, films} = this.props;
-    const {selectedMovieId} = this.state;
-
-    if (selectedMovieId !== null) {
-      return <MoviePage film={films[selectedMovieId]}/>;
-    }
-
-    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
-  }
-
-  _handleSmallMovieCardClick(selectedMovieId) {
-    this.setState({selectedMovieId});
   }
 }
 
@@ -65,5 +68,7 @@ App.propTypes = {
     description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    previewSrc: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
   })).isRequired
 };

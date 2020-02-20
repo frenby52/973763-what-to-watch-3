@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import MoviePageDetails from "./movie-page-details";
 
 const film = {
   id: 0,
@@ -19,13 +19,10 @@ const film = {
   runTime: 20,
 };
 
-it(`SmallMovieCard component should render correct`, () => {
+
+it(`MoviePageDetails component should render correct`, () => {
   const tree = renderer
-    .create(<SmallMovieCard film={film} onCardClick={() => {}} />, {
-      createNodeMock: () => {
-        return {};
-      }
-    })
+    .create(<MoviePageDetails film={film} />)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

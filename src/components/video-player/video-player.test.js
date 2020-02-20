@@ -1,6 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import React from 'react';
+import renderer from 'react-test-renderer';
+import VideoPlayer from "./video-player";
 
 const film = {
   id: 0,
@@ -16,17 +16,19 @@ const film = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  runTime: 20,
 };
 
-it(`SmallMovieCard component should render correct`, () => {
-  const tree = renderer
-    .create(<SmallMovieCard film={film} onCardClick={() => {}} />, {
-      createNodeMock: () => {
-        return {};
-      }
-    })
-    .toJSON();
+it(`VideoPlayer component should render correct`, () => {
+  const tree = renderer.create(<VideoPlayer
+    src={film.previewSrc}
+    isPlaying={false}
+    previewImage={film.previewImage}
+    muted={true}
+  />, {
+    createNodeMock: () => {
+      return {};
+    }
+  }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

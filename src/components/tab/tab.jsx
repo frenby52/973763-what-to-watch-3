@@ -1,19 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import MoviePageOverview from '../movie-page-overview/movie-page-overview.jsx';
+import MoviePageDetails from '../movie-page-details/movie-page-details.jsx';
+import MoviePageReviews from '../movie-page-reviews/movie-page-reviews.jsx';
 
-const MoviesList = (props) => {
-  const {films, onCardClick} = props;
+const Tab = (props) => {
+  const {film, activeTab} = props;
+  const tabInfoComponents = [MoviePageOverview, MoviePageDetails, MoviePageReviews];
+  const ActiveTabInfoComponent = tabInfoComponents[activeTab];
 
-  return (
-    <React.Fragment>
-      {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} key={film.title}/>)}
-    </React.Fragment>
-  );
+  return (<ActiveTabInfoComponent film={film}/>);
 };
 
-MoviesList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape({
+export default Tab;
+
+Tab.propTypes = {
+  film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
@@ -28,8 +30,6 @@ MoviesList.propTypes = {
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     previewSrc: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
-  })).isRequired,
-  onCardClick: PropTypes.func.isRequired
+  }).isRequired,
+  activeTab: PropTypes.number.isRequired,
 };
-
-export default MoviesList;

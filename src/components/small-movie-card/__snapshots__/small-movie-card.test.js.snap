@@ -10,10 +10,8 @@ exports[`SmallMovieCard component should render correct 1`] = `
   <div
     className="small-movie-card__image"
   >
-    <img
-      alt="The Grand Budapest Hotel"
+    <video
       height="175"
-      src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
       width="280"
     />
   </div>
