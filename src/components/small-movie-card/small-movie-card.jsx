@@ -6,6 +6,7 @@ export default class SmallMovieCard extends React.PureComponent {
   constructor(props) {
     super(props);
 
+    this._handleCardMouseClick = this._handleCardMouseClick.bind(this);
     this._handleCardMouseEnter = this._handleCardMouseEnter.bind(this);
     this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
 
@@ -16,6 +17,16 @@ export default class SmallMovieCard extends React.PureComponent {
 
     this.timerId = null;
     this.PREVIEW_DELAY = 1000;
+  }
+
+  _handleCardMouseClick(evt) {
+    const {film, onCardClick} = this.props;
+
+    evt.preventDefault();
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
+    onCardClick(film.id);
   }
 
   _handleCardMouseEnter() {
@@ -42,18 +53,12 @@ export default class SmallMovieCard extends React.PureComponent {
   }
 
   render() {
-    const {film, onCardClick} = this.props;
-    const {title, previewImage, id, previewSrc} = film;
+    const {film} = this.props;
+    const {title, previewImage, previewSrc} = film;
 
     return (
       <article className="small-movie-card catalog__movies-card"
-        onClick={(evt) => {
-          evt.preventDefault();
-          if (this.timerId) {
-            clearTimeout(this.timerId);
-          }
-          onCardClick(id);
-        }}
+        onClick={this._handleCardMouseClick}
         onMouseEnter={this._handleCardMouseEnter}
         onMouseLeave={this._handleCardMouseLeave}>
         <div className="small-movie-card__image">

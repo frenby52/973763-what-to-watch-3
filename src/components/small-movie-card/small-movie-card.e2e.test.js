@@ -25,10 +25,8 @@ const film = {
 
 describe(`SmallMovieCard group`, () => {
   const cardClickHandler = jest.fn();
-  const cardMouseEnterHandler = jest.fn();
-  const cardMouseLeaveHandler = jest.fn();
 
-  const smallMovieCard = shallow(<SmallMovieCard film={film} onCardClick={cardClickHandler} onCardMouseEnter={cardMouseEnterHandler} onCardMouseLeave={cardMouseLeaveHandler}/>);
+  const smallMovieCard = shallow(<SmallMovieCard film={film} onCardClick={cardClickHandler} />);
 
   it(`SmallMovieCard click on card/title is correct`, () => {
     smallMovieCard.simulate(`click`, {preventDefault() {}});
@@ -36,16 +34,16 @@ describe(`SmallMovieCard group`, () => {
     expect(cardClickHandler.mock.calls[0][0]).toEqual(film.id);
   });
 
-  it(`SmallMovieCard mouseenter is correct`, () => {
+  it(`SmallMovieCard mouseenter event is correctly changes state`, () => {
     smallMovieCard.simulate(`mouseenter`);
-    expect(cardMouseEnterHandler).toHaveBeenCalledTimes(1);
-    // expect(cardMouseEnterHandler.mock.calls[0][0]).toMatchObject(film);
-    expect(cardMouseEnterHandler).toBeCalledWith(film);
+    expect(smallMovieCard.state().activeCard).toEqual(film);
   });
 
-  it(`SmallMovieCard mouseleave is correct`, () => {
+  it(`SmallMovieCard mouseleave event is correctly changes state`, () => {
     smallMovieCard.simulate(`mouseleave`);
-    expect(cardMouseLeaveHandler).toHaveBeenCalledTimes(1);
+    expect(smallMovieCard.state().isPlaying).toBe(false);
+    expect(smallMovieCard.state().activeCard).toEqual(null);
   });
 });
+
 
