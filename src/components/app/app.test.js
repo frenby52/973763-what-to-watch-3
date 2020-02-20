@@ -23,6 +23,7 @@ const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 20,
   },
   {
     id: 1,
@@ -38,6 +39,7 @@ const films = [
     director: `director2`,
     starring: [`actor`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 30,
   },
   {
     id: 2,
@@ -53,6 +55,7 @@ const films = [
     director: `director3`,
     starring: [`Bill Murray`, `actor`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 50,
   },
   {
     id: 3,
@@ -68,6 +71,7 @@ const films = [
     director: `director4`,
     starring: [`Bill Murray`, `Edward Norton`, `actor`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 40,
   },
   {
     id: 4,
@@ -83,6 +87,7 @@ const films = [
     director: `director5`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `actor`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 20,
   },
   {
     id: 5,
@@ -98,6 +103,7 @@ const films = [
     director: `director6`,
     starring: [`actor`, `actor2`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 31,
   },
   {
     id: 6,
@@ -113,6 +119,7 @@ const films = [
     director: `director7`,
     starring: [`Bill Murray`, `actor`, `actor2`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 50,
   },
   {
     id: 7,
@@ -128,6 +135,7 @@ const films = [
     director: `director8`,
     starring: [`Bill Murray`, `Edward Norton`, `actor`, `actor2`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+    runTime: 40,
   },
 ];
 

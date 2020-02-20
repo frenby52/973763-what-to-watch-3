@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const MoviePageDetails = (props) => {
   const {film} = props;
-  const {genre, releaseDate, director, starring} = film;
+  const {genre, releaseDate, director, starring, runTime} = film;
 
   return (
     <React.Fragment>
@@ -24,7 +24,7 @@ const MoviePageDetails = (props) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">1h 39m</span>
+            <span className="movie-card__details-value">1h {runTime}m</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
@@ -55,6 +55,7 @@ MoviePageDetails.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     previewSrc: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
   }).isRequired,
 };
 
