@@ -97,7 +97,9 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-        <MoviesList films={films} onCardClick={onCardClick}/>
+        <div className="catalog__movies-list">
+          <MoviesList films={films} onCardClick={onCardClick}/>
+        </div>
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
         </div>

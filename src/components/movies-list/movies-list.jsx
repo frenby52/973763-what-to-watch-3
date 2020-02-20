@@ -6,9 +6,9 @@ const MoviesList = (props) => {
   const {films, onCardClick} = props;
 
   return (
-    <div className="catalog__movies-list">
+    <React.Fragment>
       {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} key={film.title}/>)}
-    </div>
+    </React.Fragment>
   );
 };
 
