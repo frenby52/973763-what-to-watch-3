@@ -1,18 +1,4 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import {App} from "./app.jsx";
-
-const mockStore = configureStore([]);
-
-const ALL_GENRES = `All genres`;
-
-const promoFilmMock = {
-  title: `The Grand Budapest Hotel`,
-  genre: `Drama`,
-  releaseDate: 2014,
-};
+import {reducer, ActionCreator, ActionType} from "./reducer.js";
 
 const films = [
   {
@@ -30,6 +16,24 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 20,
+    comments: [
+      {
+        id: 0,
+        text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+        rating: `8,9`
+      },
+      {
+        id: 1,
+        text: `Andersons films are too precious for some, but for those of us willing to
+                lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
+                has added a hint of gravitas to the mix, improving the recipe.`,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+        rating: `8,0`
+      }
+    ],
   },
   {
     id: 1,
@@ -46,6 +50,16 @@ const films = [
     starring: [`actor`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 30,
+    comments: [
+      {
+        id: 0,
+        text: `I didnt find it amusing, and while I can appreciate the creativity, its an
+                hour and 40 minutes I wish I could take back.`,
+        author: `Amanda Greever`,
+        date: `November 18, 2015`,
+        rating: `8,0`
+      },
+    ],
   },
   {
     id: 2,
@@ -62,6 +76,24 @@ const films = [
     starring: [`Bill Murray`, `actor`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 50,
+    comments: [
+      {
+        id: 0,
+        text: `The mannered, madcap proceedings are often delightful, occasionally silly, and
+                here and there, gruesome and/or heartbreaking.`,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+        rating: `7,2`
+      },
+      {
+        id: 0,
+        text: `It is certainly a magical and childlike way of storytelling, even if the
+                content is a little more adult.`,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+        rating: `7,6`
+      },
+    ],
   },
   {
     id: 3,
@@ -78,6 +110,16 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `actor`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 40,
+    comments: [
+      {
+        id: 0,
+        text: `It is certainly a magical and childlike way of storytelling, even if the
+                content is a little more adult.`,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+        rating: `7,0`
+      },
+    ],
   },
   {
     id: 4,
@@ -94,6 +136,7 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `actor`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 20,
+    comments: [],
   },
   {
     id: 5,
@@ -110,6 +153,24 @@ const films = [
     starring: [`actor`, `actor2`, `Jude Law`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 31,
+    comments: [
+      {
+        id: 0,
+        text: `The mannered, madcap proceedings are often delightful, occasionally silly, and
+                here and there, gruesome and/or heartbreaking.`,
+        author: `Matthew Lickona`,
+        date: `December 20, 2016`,
+        rating: `7,2`
+      },
+      {
+        id: 0,
+        text: `It is certainly a magical and childlike way of storytelling, even if the
+                content is a little more adult.`,
+        author: `Paula Fleri-Soler`,
+        date: `December 20, 2016`,
+        rating: `7,6`
+      },
+    ],
   },
   {
     id: 6,
@@ -126,6 +187,7 @@ const films = [
     starring: [`Bill Murray`, `actor`, `actor2`, `Willem Dafoe`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 50,
+    comments: [],
   },
   {
     id: 7,
@@ -142,26 +204,77 @@ const films = [
     starring: [`Bill Murray`, `Edward Norton`, `actor`, `actor2`],
     previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
     runTime: 40,
+    comments: [
+      {
+        id: 0,
+        text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+        author: `Kate Muir`,
+        date: `December 24, 2016`,
+        rating: `8,9`
+      },
+      {
+        id: 1,
+        text: `Andersons films are too precious for some, but for those of us willing to
+                lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
+                has added a hint of gravitas to the mix, improving the recipe.`,
+        author: `Bill Goodykoontz`,
+        date: `November 18, 2015`,
+        rating: `8,0`
+      }
+    ],
   },
 ];
 
-it(`App render correct`, () => {
-  const store = mockStore({
-    filterType: ALL_GENRES,
-    movieCards: films,
-    genres: [ALL_GENRES]
+const ALL_GENRES = `All genres`;
+const GENRES_MAX_COUNT = 9;
+
+const genres = [...new Set(films.map((film) => film.genre))].slice(0, GENRES_MAX_COUNT).sort();
+const allGenres = [ALL_GENRES, ...genres];
+
+describe(`Reducer tests group`, () => {
+  it(`Reducer without additional parameters should return initial state`, () => {
+    expect(reducer(void 0, {})).toEqual({
+      filterType: ALL_GENRES,
+      movieCards: films,
+      genres: allGenres
+    });
   });
 
-  const tree = renderer
-    .create(
-        <Provider store={store}>
-          <App title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} />
-        </Provider>, {
-          createNodeMock: () => {
-            return {};
-          }
-        })
-    .toJSON();
+  it(`Reducer should return correctly set new filter by a given value`, () => {
+    expect(reducer({
+      filterType: ALL_GENRES,
+    }, {
+      type: ActionType.CHANGE_GENRE_FILTER,
+      filterType: `Comedy`
+    })).toEqual({
+      filterType: `Comedy`,
+    });
+  });
 
-  expect(tree).toMatchSnapshot();
+  it(`Reducer should correctly return movieCards by a given filter type`, () => {
+    expect(reducer({
+      movieCards: films,
+      filterType: `Horror`
+    }, {
+      type: ActionType.GET_FILTERED_MOVIE_CARDS,
+    })).toEqual({
+      movieCards: [films[2]],
+      filterType: `Horror`
+    });
+  });
+});
+
+describe(`Action creators work correctly`, () => {
+  it(`Action creator for getFilteredMovieCards returns correct action`, () => {
+    expect(ActionCreator.getFilteredMovieCards()).toEqual({
+      type: ActionType.GET_FILTERED_MOVIE_CARDS,
+    });
+  });
+
+  it(`Action creator for changing genre filter returns correct action`, () => {
+    expect(ActionCreator.changeGenreFilter(`Horror`)).toEqual({
+      type: ActionType.CHANGE_GENRE_FILTER,
+      filterType: `Horror`
+    });
+  });
 });
