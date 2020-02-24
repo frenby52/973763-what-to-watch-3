@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
 
+const PREVIEW_DELAY = 1000;
+
 export default class SmallMovieCard extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -16,7 +18,6 @@ export default class SmallMovieCard extends React.PureComponent {
     };
 
     this.timerId = null;
-    this.PREVIEW_DELAY = 1000;
   }
 
   _handleCardMouseClick(evt) {
@@ -39,7 +40,7 @@ export default class SmallMovieCard extends React.PureComponent {
       this.setState({
         isPlaying: true
       });
-    }, this.PREVIEW_DELAY);
+    }, PREVIEW_DELAY);
   }
 
   _handleCardMouseLeave() {

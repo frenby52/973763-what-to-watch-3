@@ -1,6 +1,8 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
+
+const ALL_GENRES = `All genres`;
 
 const promoFilmMock = {
   title: `The Grand Budapest Hotel`,
@@ -141,7 +143,7 @@ const films = [
 
 it(`Main component should render correct`, () => {
   const tree = renderer
-    .create(<Main title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} onCardClick={() => {}} />, {
+    .create(<Main title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} onCardClick={() => {}} genres={[ALL_GENRES]} filterType={ALL_GENRES} onFilterClick={() => {}} />, {
       createNodeMock: () => {
         return {};
       }

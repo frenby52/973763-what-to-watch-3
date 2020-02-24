@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 
 const SIMILAR_FILMS_COUNT = 4;
 
-export default class App extends React.PureComponent {
+class App extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -72,3 +73,10 @@ App.propTypes = {
     runTime: PropTypes.number.isRequired,
   })).isRequired
 };
+
+const mapStateToProps = (state) => ({
+  films: state.movieCards,
+});
+
+export {App};
+export default connect(mapStateToProps)(App);
