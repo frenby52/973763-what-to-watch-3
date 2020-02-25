@@ -143,7 +143,7 @@ const films = [
 
 it(`Main component should render correct`, () => {
   const tree = renderer
-    .create(<Main title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} onCardClick={() => {}} genres={[ALL_GENRES]} filterType={ALL_GENRES} onFilterClick={() => {}} />, {
+    .create(<Main title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} onCardClick={() => {}} genres={[ALL_GENRES]} filterType={ALL_GENRES} onFilterClick={() => {}} showingCardsCount={8} onShowMoreClick={() => {}}/>, {
       createNodeMock: () => {
         return {};
       }

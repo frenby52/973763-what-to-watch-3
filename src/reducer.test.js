@@ -225,6 +225,11 @@ const films = [
   },
 ];
 
+const FilmsCount = {
+  ON_START: 8,
+  BY_BUTTON: 8
+};
+
 const ALL_GENRES = `All genres`;
 const GENRES_MAX_COUNT = 9;
 
@@ -236,7 +241,8 @@ describe(`Reducer tests group`, () => {
     expect(reducer(void 0, {})).toEqual({
       filterType: ALL_GENRES,
       movieCards: films,
-      genres: allGenres
+      genres: allGenres,
+      showingCardsCount: FilmsCount.ON_START
     });
   });
 
@@ -254,12 +260,29 @@ describe(`Reducer tests group`, () => {
   it(`Reducer should correctly return movieCards by a given filter type`, () => {
     expect(reducer({
       movieCards: films,
-      filterType: `Horror`
+      filterType: `Horror`,
+      showingCardsCount: FilmsCount.ON_START
     }, {
       type: ActionType.GET_FILTERED_MOVIE_CARDS,
     })).toEqual({
       movieCards: [films[2]],
-      filterType: `Horror`
+      filterType: `Horror`,
+      showingCardsCount: 1
+    });
+  });
+
+  it(`Reducer should correctly increment showingCardsCount by a given value`, () => {
+    expect(reducer({
+      movieCards: films,
+      filterType: ALL_GENRES,
+      showingCardsCount: 1
+    }, {
+      type: ActionType.INCREMENT_SHOWING_CARDS_COUNT,
+      payload: 1
+    })).toEqual({
+      movieCards: films,
+      filterType: ALL_GENRES,
+      showingCardsCount: 2
     });
   });
 });
@@ -275,6 +298,13 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.changeGenreFilter(`Horror`)).toEqual({
       type: ActionType.CHANGE_GENRE_FILTER,
       filterType: `Horror`
+    });
+  });
+
+  it(`Action creator for incrementShowingCardsCount returns correct action`, () => {
+    expect(ActionCreator.incrementShowingCardsCount()).toEqual({
+      type: ActionType.INCREMENT_SHOWING_CARDS_COUNT,
+      payload: FilmsCount.BY_BUTTON
     });
   });
 });

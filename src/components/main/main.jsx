@@ -4,9 +4,10 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
+import ShowMore from "../show-more/show-more.jsx";
 
 const Main = (props) => {
-  const {title, genre, releaseDate, films, onCardClick, genres, filterType, onFilterClick} = props;
+  const {title, genre, releaseDate, films, onCardClick, genres, filterType, onFilterClick, onShowMoreClick, showingCardsCount} = props;
 
   return (<React.Fragment>
     <section className="movie-card">
@@ -69,11 +70,9 @@ const Main = (props) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList genres={genres} filterType={filterType} onFilterClick={onFilterClick}/>
         <div className="catalog__movies-list">
-          <MoviesList films={films} onCardClick={onCardClick}/>
+          <MoviesList films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
         </div>
-        <div className="catalog__more">
-          <button className="catalog__button" type="button">Show more</button>
-        </div>
+        {showingCardsCount < films.length && <ShowMore onShowMoreClick={onShowMoreClick}/>}
       </section>
 
       <footer className="page-footer">
@@ -117,11 +116,14 @@ Main.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   filterType: PropTypes.string.isRequired,
   onFilterClick: PropTypes.func.isRequired,
+  onShowMoreClick: PropTypes.func.isRequired,
+  showingCardsCount: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   filterType: state.filterType,
-  genres: state.genres
+  genres: state.genres,
+  showingCardsCount: state.showingCardsCount
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -129,6 +131,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeGenreFilter(filterType));
     dispatch(ActionCreator.getFilteredMovieCards());
   },
+  onShowMoreClick() {
+    dispatch(ActionCreator.incrementShowingCardsCount());
+  }
 });
 
 export {Main};

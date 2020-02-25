@@ -149,7 +149,8 @@ it(`App render correct`, () => {
   const store = mockStore({
     filterType: ALL_GENRES,
     movieCards: films,
-    genres: [ALL_GENRES]
+    genres: [ALL_GENRES],
+    showingCardsCount: 8
   });
 
   const tree = renderer
