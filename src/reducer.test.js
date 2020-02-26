@@ -226,8 +226,8 @@ const films = [
 ];
 
 const FilmsCount = {
-  ON_START: 8,
-  BY_BUTTON: 8
+  ON_START: 2,
+  BY_BUTTON: 2
 };
 
 const ALL_GENRES = `All genres`;
@@ -264,6 +264,7 @@ describe(`Reducer tests group`, () => {
       showingCardsCount: FilmsCount.ON_START
     }, {
       type: ActionType.GET_FILTERED_MOVIE_CARDS,
+      payload: {movieCards: [films[2]], showingCardsCount: 1}
     })).toEqual({
       movieCards: [films[2]],
       filterType: `Horror`,
@@ -289,8 +290,9 @@ describe(`Reducer tests group`, () => {
 
 describe(`Action creators work correctly`, () => {
   it(`Action creator for getFilteredMovieCards returns correct action`, () => {
-    expect(ActionCreator.getFilteredMovieCards()).toEqual({
+    expect(ActionCreator.getFilteredMovieCards(`Horror`)).toEqual({
       type: ActionType.GET_FILTERED_MOVIE_CARDS,
+      payload: {movieCards: [films[2]], showingCardsCount: 1}
     });
   });
 

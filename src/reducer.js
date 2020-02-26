@@ -2,8 +2,8 @@ import films from "./mocks/films";
 
 const ALL_GENRES = `All genres`;
 const FilmsCount = {
-  ON_START: 8,
-  BY_BUTTON: 8
+  ON_START: 2,
+  BY_BUTTON: 2
 };
 const GENRES_MAX_COUNT = 9;
 
@@ -33,7 +33,12 @@ const ActionType = {
 
 const ActionCreator = {
   changeGenreFilter: (filterType) => ({type: ActionType.CHANGE_GENRE_FILTER, filterType}),
-  getFilteredMovieCards: () => ({type: ActionType.GET_FILTERED_MOVIE_CARDS}),
+  getFilteredMovieCards: (filterType) => {
+    const filteredMovieCards = getMovieCardsByFilter(films, filterType);
+    const showingCardsCount = (filteredMovieCards.length >= FilmsCount.ON_START) ? FilmsCount.ON_START : filteredMovieCards.length;
+
+    return {type: ActionType.GET_FILTERED_MOVIE_CARDS, payload: {movieCards: filteredMovieCards, showingCardsCount}};
+  },
   incrementShowingCardsCount: () => ({type: ActionType.INCREMENT_SHOWING_CARDS_COUNT, payload: FilmsCount.BY_BUTTON}),
 };
 
@@ -44,14 +49,13 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {filterType: action.filterType});
 
     case ActionType.GET_FILTERED_MOVIE_CARDS:
-      const filteredMovieCards = getMovieCardsByFilter(films, state.filterType);
 
-      return Object.assign({}, state, {movieCards: filteredMovieCards, showingCardsCount: (filteredMovieCards.length >= FilmsCount.ON_START) ? FilmsCount.ON_START : filteredMovieCards.length});
+      return Object.assign({}, state, {movieCards: action.payload.movieCards, showingCardsCount: action.payload.showingCardsCount});
 
     case ActionType.INCREMENT_SHOWING_CARDS_COUNT:
-      const filteredFilms = (state.filterType === ALL_GENRES) ? films : state.movieCards;
+      const currentCardsCount = (state.showingCardsCount >= state.movieCards.length) ? state.movieCards.length : state.showingCardsCount + action.payload;
 
-      return Object.assign({}, state, {showingCardsCount: (state.showingCardsCount >= filteredFilms.length) ? filteredFilms.length : state.showingCardsCount + action.payload});
+      return Object.assign({}, state, {showingCardsCount: currentCardsCount});
   }
 
   return state;
