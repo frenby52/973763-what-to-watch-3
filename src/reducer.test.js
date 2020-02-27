@@ -226,8 +226,8 @@ const films = [
 ];
 
 const FilmsCount = {
-  ON_START: 2,
-  BY_BUTTON: 2
+  ON_START: 8,
+  BY_BUTTON: 8
 };
 
 const ALL_GENRES = `All genres`;

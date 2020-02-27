@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import withActiveItem from '../../hocs/with-active-item';
+const MoviePageWrapped = withActiveItem(MoviePage);
 
 const SIMILAR_FILMS_COUNT = 4;
 
@@ -24,7 +26,7 @@ class App extends React.PureComponent {
 
     if (selectedMovieId !== null) {
       const similarFilms = films.filter((film) => film.genre === films[selectedMovieId].genre && film.id !== selectedMovieId).slice(0, SIMILAR_FILMS_COUNT);
-      return <MoviePage film={films[selectedMovieId]} similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
+      return <MoviePageWrapped film={films[selectedMovieId]} similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
     }
 
     return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
@@ -44,7 +46,7 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
+            <MoviePageWrapped film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
           </Route>
         </Switch>
       </BrowserRouter>

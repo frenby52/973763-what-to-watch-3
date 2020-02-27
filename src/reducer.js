@@ -2,8 +2,8 @@ import films from "./mocks/films";
 
 const ALL_GENRES = `All genres`;
 const FilmsCount = {
-  ON_START: 2,
-  BY_BUTTON: 2
+  ON_START: 8,
+  BY_BUTTON: 8
 };
 const GENRES_MAX_COUNT = 9;
 
