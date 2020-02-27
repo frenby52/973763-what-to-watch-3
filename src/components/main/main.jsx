@@ -130,6 +130,7 @@ const mapDispatchToProps = (dispatch) => ({
   onFilterClick(filterType) {
     dispatch(ActionCreator.changeGenreFilter(filterType));
     dispatch(ActionCreator.getFilteredMovieCards(filterType));
+    dispatch(ActionCreator.resetShowingCardsCount());
   },
   onShowMoreClick() {
     dispatch(ActionCreator.incrementShowingCardsCount());

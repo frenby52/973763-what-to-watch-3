@@ -264,11 +264,11 @@ describe(`Reducer tests group`, () => {
       showingCardsCount: FilmsCount.ON_START
     }, {
       type: ActionType.GET_FILTERED_MOVIE_CARDS,
-      payload: {movieCards: [films[2]], showingCardsCount: 1}
+      payload: [films[2]]
     })).toEqual({
       movieCards: [films[2]],
       filterType: `Horror`,
-      showingCardsCount: 1
+      showingCardsCount: FilmsCount.ON_START
     });
   });
 
@@ -292,7 +292,7 @@ describe(`Action creators work correctly`, () => {
   it(`Action creator for getFilteredMovieCards returns correct action`, () => {
     expect(ActionCreator.getFilteredMovieCards(`Horror`)).toEqual({
       type: ActionType.GET_FILTERED_MOVIE_CARDS,
-      payload: {movieCards: [films[2]], showingCardsCount: 1}
+      payload: [films[2]]
     });
   });
 
