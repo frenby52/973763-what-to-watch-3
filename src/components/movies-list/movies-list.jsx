@@ -7,7 +7,7 @@ const MoviesList = (props) => {
 
   return (
     <React.Fragment>
-      {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} key={film.title}/>)}
+      {films.map((film) => <SmallMovieCard film={film} onCardClick={onCardClick} key={film.id}/>)}
     </React.Fragment>
   );
 };

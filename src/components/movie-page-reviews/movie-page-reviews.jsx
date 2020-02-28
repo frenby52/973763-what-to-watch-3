@@ -11,7 +11,7 @@ const MoviePageReviews = (props) => {
         <div className="movie-card__reviews-col">
           {comments && comments.map((comment) => {
             return (
-              <div className="review" key={comment.id}>
+              <div className="review" key={comment.author}>
                 <blockquote className="review__quote">
                   <p className="review__text">{comment.text}</p>
                   <footer className="review__details">

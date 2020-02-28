@@ -14,7 +14,8 @@ const initialState = {
   filterType: ALL_GENRES,
   movieCards: films,
   genres: allGenres,
-  showingCardsCount: FilmsCount.ON_START
+  showingCardsCount: FilmsCount.ON_START,
+  selectedMovieId: -1
 };
 
 const getMovieCardsByFilter = (cards, filterType) => {
@@ -29,14 +30,16 @@ const ActionType = {
   CHANGE_GENRE_FILTER: `CHANGE_GENRE_FILTER`,
   GET_FILTERED_MOVIE_CARDS: `GET_FILTERED_MOVIES`,
   INCREMENT_SHOWING_CARDS_COUNT: `INCREMENT_SHOWING_CARDS_COUNT`,
-  RESET_SHOWING_CARDS_COUNT: `RESET_SHOWING_CARDS_COUNT`
+  RESET_SHOWING_CARDS_COUNT: `RESET_SHOWING_CARDS_COUNT`,
+  SET_MOVIE_CARD_ID: `SET_MOVIE_CARD_ID`,
 };
 
 const ActionCreator = {
   changeGenreFilter: (filterType) => ({type: ActionType.CHANGE_GENRE_FILTER, filterType}),
   getFilteredMovieCards: (filterType) => ({type: ActionType.GET_FILTERED_MOVIE_CARDS, payload: getMovieCardsByFilter(films, filterType)}),
   incrementShowingCardsCount: () => ({type: ActionType.INCREMENT_SHOWING_CARDS_COUNT, payload: FilmsCount.BY_BUTTON}),
-  resetShowingCardsCount: () => ({type: ActionType.RESET_SHOWING_CARDS_COUNT, payload: FilmsCount.ON_START})
+  resetShowingCardsCount: () => ({type: ActionType.RESET_SHOWING_CARDS_COUNT, payload: FilmsCount.ON_START}),
+  setMovieCardId: (id) => ({type: ActionType.SET_MOVIE_CARD_ID, payload: id}),
 };
 
 const reducer = (state = initialState, action) => {
@@ -52,6 +55,9 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.RESET_SHOWING_CARDS_COUNT:
       return Object.assign({}, state, {showingCardsCount: action.payload});
+
+    case ActionType.SET_MOVIE_CARD_ID:
+      return Object.assign({}, state, {selectedMovieId: action.payload});
   }
 
   return state;

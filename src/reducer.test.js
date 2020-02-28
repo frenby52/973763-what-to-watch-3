@@ -242,7 +242,8 @@ describe(`Reducer tests group`, () => {
       filterType: ALL_GENRES,
       movieCards: films,
       genres: allGenres,
-      showingCardsCount: FilmsCount.ON_START
+      showingCardsCount: FilmsCount.ON_START,
+      selectedMovieId: -1
     });
   });
 
@@ -286,6 +287,32 @@ describe(`Reducer tests group`, () => {
       showingCardsCount: 2
     });
   });
+
+  it(`Reducer should correctly reset showingCardsCount to default`, () => {
+    expect(reducer({
+      movieCards: films,
+      filterType: ALL_GENRES,
+      showingCardsCount: 1
+    }, {
+      type: ActionType.RESET_SHOWING_CARDS_COUNT,
+      payload: FilmsCount.ON_START
+    })).toEqual({
+      movieCards: films,
+      filterType: ALL_GENRES,
+      showingCardsCount: FilmsCount.ON_START
+    });
+  });
+
+  it(`Reducer should correctly return movieCard id by a given value`, () => {
+    expect(reducer({
+      selectedMovieId: -1
+    }, {
+      type: ActionType.SET_MOVIE_CARD_ID,
+      payload: 1
+    })).toEqual({
+      selectedMovieId: 1
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -307,6 +334,20 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.incrementShowingCardsCount()).toEqual({
       type: ActionType.INCREMENT_SHOWING_CARDS_COUNT,
       payload: FilmsCount.BY_BUTTON
+    });
+  });
+
+  it(`Action creator for resetShowingCardsCount returns correct action`, () => {
+    expect(ActionCreator.resetShowingCardsCount()).toEqual({
+      type: ActionType.RESET_SHOWING_CARDS_COUNT,
+      payload: FilmsCount.BY_BUTTON
+    });
+  });
+
+  it(`Action creator for setMovieCardId returns correct action`, () => {
+    expect(ActionCreator.setMovieCardId(1)).toEqual({
+      type: ActionType.SET_MOVIE_CARD_ID,
+      payload: 1
     });
   });
 });
