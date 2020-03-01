@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import withActiveItem from '../../hocs/with-active-item';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {ActionCreator} from "../../reducer";
 const MoviePageWrapped = withActiveItem(MoviePage);
 

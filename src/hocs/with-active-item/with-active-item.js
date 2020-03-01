@@ -6,7 +6,7 @@ const withActiveItem = (Component) => {
       super(props);
 
       this.state = {
-        activeItem: 0
+        activeItem: -1
       };
 
       this._handleActiveItemChange = this._handleActiveItemChange.bind(this);

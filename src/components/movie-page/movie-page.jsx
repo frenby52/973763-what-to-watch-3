@@ -67,10 +67,10 @@ const MoviePage = (props) => {
 
           <div className="movie-card__desc">
             <nav className="movie-nav movie-card__nav">
-              <Tabs onTabClick={onActiveItemChange} activeTab={activeTabIndex} />
+              <Tabs onTabClick={onActiveItemChange} activeTab={activeTabIndex === -1 ? 0 : activeTabIndex} />
             </nav>
 
-            <Tab film={film} activeTab={activeTabIndex} />
+            <Tab film={film} activeTab={activeTabIndex === -1 ? 0 : activeTabIndex} />
           </div>
         </div>
       </div>
