@@ -12,8 +12,6 @@ const Tab = (props) => {
   return (<ActiveTabInfoComponent film={film}/>);
 };
 
-export default Tab;
-
 Tab.propTypes = {
   film: PropTypes.shape({
     id: PropTypes.number.isRequired,
@@ -33,3 +31,5 @@ Tab.propTypes = {
   }).isRequired,
   activeTab: PropTypes.number.isRequired,
 };
+
+export default Tab;

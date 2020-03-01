@@ -4,38 +4,32 @@ import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
+import {ActionCreator} from "../../reducer";
+const MoviePageWrapped = withActiveItem(MoviePage);
 
 const SIMILAR_FILMS_COUNT = 4;
 
 class App extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this._handleSmallMovieCardClick = this._handleSmallMovieCardClick.bind(this);
-
-    this.state = {
-      selectedMovieId: null
-    };
   }
 
   _renderApp() {
-    const {title, genre, releaseDate, films} = this.props;
-    const {selectedMovieId} = this.state;
+    const {title, genre, releaseDate, films, onCardClick, selectedMovieId} = this.props;
 
-    if (selectedMovieId !== null) {
-      const similarFilms = films.filter((film) => film.genre === films[selectedMovieId].genre && film.id !== selectedMovieId).slice(0, SIMILAR_FILMS_COUNT);
-      return <MoviePage film={films[selectedMovieId]} similarFilms={similarFilms} onCardClick={this._handleSmallMovieCardClick} />;
+    if (selectedMovieId >= 0) {
+      const selectedMovie = films.find((film) => film.id === selectedMovieId);
+      const similarFilms = films.filter((film) => film.id !== selectedMovieId && film.genre === selectedMovie.genre);
+
+      return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} />;
     }
 
-    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={this._handleSmallMovieCardClick}/>;
-  }
-
-  _handleSmallMovieCardClick(selectedMovieId) {
-    this.setState({selectedMovieId});
+    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={onCardClick}/>;
   }
 
   render() {
-    const {films} = this.props;
+    const {films, onCardClick} = this.props;
 
     return (
       <BrowserRouter>
@@ -44,7 +38,7 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={this._handleSmallMovieCardClick}/>
+            <MoviePageWrapped film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={onCardClick}/>
           </Route>
         </Switch>
       </BrowserRouter>
@@ -56,6 +50,8 @@ App.propTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  selectedMovieId: PropTypes.number.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -76,7 +72,14 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: state.movieCards,
+  selectedMovieId: state.selectedMovieId
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCardClick(id) {
+    dispatch(ActionCreator.setMovieCardId(id));
+  }
 });
 
 export {App};
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -2,8 +2,6 @@ import React from "react";
 import renderer from "react-test-renderer";
 import {App} from "./app.jsx";
 
-jest.mock(`../main/main.jsx`, () => `Main`);
-
 const promoFilmMock = {
   title: `The Grand Budapest Hotel`,
   genre: `Drama`,
@@ -144,7 +142,7 @@ const films = [
 it(`App render correct`, () => {
   const tree = renderer
     .create(
-        <App title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} />, {
+        <App title={promoFilmMock.title} genre={promoFilmMock.genre} releaseDate={promoFilmMock.releaseDate} films={films} selectedMovieId={0} onCardClick={() => {}}/>, {
           createNodeMock: () => {
             return {};
           }
