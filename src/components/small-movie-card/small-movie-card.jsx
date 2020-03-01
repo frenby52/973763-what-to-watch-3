@@ -36,9 +36,9 @@ export default class SmallMovieCard extends React.PureComponent {
   _handleCardMouseLeave() {
     const {onActiveItemChange} = this.props;
     if (this.timerId) {
-      onActiveItemChange(-1);
       clearTimeout(this.timerId);
     }
+    onActiveItemChange(-1);
   }
 
   render() {

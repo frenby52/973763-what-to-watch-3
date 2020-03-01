@@ -37,15 +37,10 @@ describe(`SmallMovieCard group`, () => {
     expect(cardClickHandler.mock.calls[0][0]).toEqual(film.id);
   });
 
-  // it(`SmallMovieCard mouseenter event is correct`, () => {
-  //   smallMovieCard.simulate(`mouseenter`);
-  //   expect(smallMovieCard.state().activeCard).toEqual(film);
-  // });
-
   it(`SmallMovieCard mouseleave event is correct`, () => {
     card.simulate(`mouseleave`);
     expect(activeItemChangeHandler).toHaveBeenCalledTimes(1);
-    expect(activeItemChangeHandler.mock.calls[0][0]).toEqual(film.id);
+    expect(activeItemChangeHandler).toBeCalledWith(-1);
   });
 });
 
