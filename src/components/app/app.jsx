@@ -20,7 +20,7 @@ class App extends React.PureComponent {
 
     if (selectedMovieId >= 0) {
       const selectedMovie = films.find((film) => film.id === selectedMovieId);
-      const similarFilms = films.filter((film) => film.id !== selectedMovieId);
+      const similarFilms = films.filter((film) => film.id !== selectedMovieId && film.genre === selectedMovie.genre);
 
       return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} />;
     }
