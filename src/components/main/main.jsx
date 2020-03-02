@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MoviesList from "../movies-list/movies-list.jsx";
+const MoviesListWrapped = withActiveItem(MoviesList);
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 
@@ -70,7 +72,7 @@ const Main = (props) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList genres={genres} filterType={filterType} onFilterClick={onFilterClick}/>
         <div className="catalog__movies-list">
-          <MoviesList films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
+          <MoviesListWrapped films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
         </div>
         {showingCardsCount < films.length && <ShowMore onShowMoreClick={onShowMoreClick}/>}
       </section>

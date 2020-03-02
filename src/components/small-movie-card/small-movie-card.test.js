@@ -21,7 +21,7 @@ const film = {
 
 it(`SmallMovieCard component should render correct`, () => {
   const tree = renderer
-    .create(<SmallMovieCard film={film} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}} />, {
+    .create(<SmallMovieCard film={film} onCardClick={() => {}} onCardMouseEnter={() => {}} onCardMouseLeave={() => {}} activeFilm={() => {}} />, {
       createNodeMock: () => {
         return {};
       }
