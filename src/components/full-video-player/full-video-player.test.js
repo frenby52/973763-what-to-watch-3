@@ -1,14 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
-// import films from "./mocks/films";
-import {createStore} from "redux";
-import {Provider} from "react-redux";
-import {reducer} from "./reducer";
+import renderer from "react-test-renderer";
+import FullVideoPlayer from "./full-video-player.jsx";
 
-const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f);
-
-const promoFilmMock = {
+const film = {
   id: 0,
   title: `The Grand Budapest Hotel`,
   previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -43,9 +37,25 @@ const promoFilmMock = {
   ],
 };
 
-ReactDOM.render(
-    <Provider store={store}>
-      <App promoFilm={promoFilmMock}/>
-    </Provider>,
-    document.querySelector(`#root`)
-);
+it(`VideoPlayer component should render correct`, () => {
+  const tree = renderer
+    .create(
+        <FullVideoPlayer
+          onExitButtonClick={() => {}}
+          film={film}
+          autoPlay={true}
+          muted={false}
+          isPlaying={false}
+          onPlayButtonClick={() => {}}
+          onFullscreenButtonClick={() => {}}
+          getElapsedTime={() => {}}
+          getPlaybackProgress={() => {}}
+          onLoadedMetadata={() => {}}
+          onTimeUpdate={() => {}}
+          videoRef={React.createRef()}
+        />
+    )
+    .toJSON();
+
+  expect(tree).toMatchSnapshot();
+});

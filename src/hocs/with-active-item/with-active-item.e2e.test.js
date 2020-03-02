@@ -21,4 +21,8 @@ describe(`withActiveItem HOC e2e group`, () => {
     wrapper.instance()._handleActiveItemChange({activeItem: 1});
     expect(wrapper.state().activeItem).toEqual({activeItem: 1});
   });
+
+  it(`MockComponentWrapped has props onActiveItemChange`, () => {
+    expect(wrapper.props().onActiveItemChange).toHaveLength(1);
+  });
 });

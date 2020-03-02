@@ -2,14 +2,29 @@ import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
+import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
+import withFullPlayer from "../../hocs/with-full-player/with-full-player.js";
+
+const MoviesListWrapped = withActiveItem(MoviesList);
+const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
 
 const Main = (props) => {
-  const {title, genre, releaseDate, films, onCardClick, genres, filterType, onFilterClick, onShowMoreClick, showingCardsCount} = props;
+  const {promoFilm, films, onCardClick, genres, filterType, onFilterClick, onShowMoreClick, showingCardsCount, isFullVideoPlayerVisible,
+    onVisibilityChange} = props;
+  const {title, genre, releaseDate} = promoFilm;
 
-  return (<React.Fragment>
+  return isFullVideoPlayerVisible ? (
+    <FullVideoPlayerWrapped
+      onExitButtonClick={onVisibilityChange}
+      film={promoFilm}
+      autoPlay={true}
+      muted={false}
+    />
+  ) : (<React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -47,7 +62,7 @@ const Main = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
+              <button className="btn btn--play movie-card__button" type="button" onClick={onVisibilityChange}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
@@ -70,7 +85,7 @@ const Main = (props) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList genres={genres} filterType={filterType} onFilterClick={onFilterClick}/>
         <div className="catalog__movies-list">
-          <MoviesList films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
+          <MoviesListWrapped films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
         </div>
         {showingCardsCount < films.length && <ShowMore onShowMoreClick={onShowMoreClick}/>}
       </section>
@@ -93,9 +108,22 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    previewSrc: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+  }).isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -118,6 +146,8 @@ Main.propTypes = {
   onFilterClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
   showingCardsCount: PropTypes.number.isRequired,
+  onVisibilityChange: PropTypes.func.isRequired,
+  isFullVideoPlayerVisible: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

@@ -2,12 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs.jsx";
 import Tab from "../tab/tab.jsx";
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MoviesList from "../movies-list/movies-list.jsx";
+import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
+import withFullPlayer from "../../hocs/with-full-player/with-full-player.js";
+
+const MoviesListWrapped = withActiveItem(MoviesList);
+const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
 
 const MoviePage = (props) => {
-  const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange} = props;
+  const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange, isFullVideoPlayerVisible,
+    onVisibilityChange} = props;
   const {title, genre, releaseDate, posterImage, backgroundImage} = film;
-  return (<React.Fragment>
+  return isFullVideoPlayerVisible ? (
+    <FullVideoPlayerWrapped
+      onExitButtonClick={onVisibilityChange}
+      film={film}
+      autoPlay={true}
+      muted={false}
+    />
+  ) : (<React.Fragment>
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
         <div className="movie-card__bg">
@@ -41,7 +55,7 @@ const MoviePage = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button">
+              <button className="btn btn--play movie-card__button" type="button" onClick={onVisibilityChange}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
@@ -81,7 +95,7 @@ const MoviePage = (props) => {
         <h2 className="catalog__title">More like this</h2>
 
         <div className="catalog__movies-list">
-          <MoviesList films={similarFilms} onCardClick={onCardClick}/>
+          <MoviesListWrapped films={similarFilms} onCardClick={onCardClick}/>
         </div>
       </section>
 
@@ -138,6 +152,8 @@ MoviePage.propTypes = {
     previewSrc: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   })).isRequired,
+  onVisibilityChange: PropTypes.func.isRequired,
+  isFullVideoPlayerVisible: PropTypes.bool.isRequired,
 };
 
 export default MoviePage;
