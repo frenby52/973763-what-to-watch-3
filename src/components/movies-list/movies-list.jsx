@@ -40,6 +40,11 @@ export default class MoviesList extends React.PureComponent {
     onActiveItemChange(-1);
   }
 
+  componentWillUnmount() {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
+  }
 
   render() {
     const {films, activeItem: activeFilm} = this.props;
