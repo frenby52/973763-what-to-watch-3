@@ -21,4 +21,10 @@ const getRatingLevel = (ratingScore) => {
   return ``;
 };
 
-export {getRatingLevel};
+const formatTime = (time) => [60, 60, 24].map((n) => {
+  const result = time % n;
+  time = (time - result) / n;
+  return (`0` + result).slice(-2);
+}).reverse().join(`:`);
+
+export {getRatingLevel, formatTime};

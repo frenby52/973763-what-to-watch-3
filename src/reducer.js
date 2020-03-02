@@ -15,7 +15,8 @@ const initialState = {
   movieCards: films,
   genres: allGenres,
   showingCardsCount: FilmsCount.ON_START,
-  selectedMovieId: -1
+  selectedMovieId: -1,
+  isFullVideoPlayerVisible: false
 };
 
 const getMovieCardsByFilter = (cards, filterType) => {
@@ -32,6 +33,7 @@ const ActionType = {
   INCREMENT_SHOWING_CARDS_COUNT: `INCREMENT_SHOWING_CARDS_COUNT`,
   RESET_SHOWING_CARDS_COUNT: `RESET_SHOWING_CARDS_COUNT`,
   SET_MOVIE_CARD_ID: `SET_MOVIE_CARD_ID`,
+  CHANGE_VISIBILITY: `CHANGE_VISIBILITY`,
 };
 
 const ActionCreator = {
@@ -40,6 +42,7 @@ const ActionCreator = {
   incrementShowingCardsCount: () => ({type: ActionType.INCREMENT_SHOWING_CARDS_COUNT, payload: FilmsCount.BY_BUTTON}),
   resetShowingCardsCount: () => ({type: ActionType.RESET_SHOWING_CARDS_COUNT, payload: FilmsCount.ON_START}),
   setMovieCardId: (id) => ({type: ActionType.SET_MOVIE_CARD_ID, payload: id}),
+  changeVisibility: () => ({type: ActionType.CHANGE_VISIBILITY}),
 };
 
 const reducer = (state = initialState, action) => {
@@ -58,6 +61,9 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.SET_MOVIE_CARD_ID:
       return Object.assign({}, state, {selectedMovieId: action.payload});
+
+    case ActionType.CHANGE_VISIBILITY:
+      return Object.assign({}, state, {isFullVideoPlayerVisible: !state.isFullVideoPlayerVisible});
   }
 
   return state;

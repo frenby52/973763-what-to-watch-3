@@ -16,20 +16,20 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {title, genre, releaseDate, films, onCardClick, selectedMovieId} = this.props;
+    const {promoFilm, films, onCardClick, selectedMovieId, isFullVideoPlayerVisible, onVisibilityChange} = this.props;
 
     if (selectedMovieId >= 0) {
       const selectedMovie = films.find((film) => film.id === selectedMovieId);
       const similarFilms = films.filter((film) => film.id !== selectedMovieId && film.genre === selectedMovie.genre);
 
-      return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} />;
+      return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
     }
 
-    return <Main title={title} genre={genre} releaseDate={releaseDate} films={films} onCardClick={onCardClick}/>;
+    return <Main promoFilm={promoFilm} films={films} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
   }
 
   render() {
-    const {films, onCardClick} = this.props;
+    const {films, onCardClick, isFullVideoPlayerVisible, onVisibilityChange} = this.props;
 
     return (
       <BrowserRouter>
@@ -38,7 +38,7 @@ class App extends React.PureComponent {
             {this._renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePageWrapped film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={onCardClick}/>
+            <MoviePageWrapped film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />
           </Route>
         </Switch>
       </BrowserRouter>
@@ -47,11 +47,26 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
+  promoFilm: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
+    posterImage: PropTypes.string.isRequired,
+    backgroundImage: PropTypes.string.isRequired,
+    ratingScore: PropTypes.number.isRequired,
+    ratingCount: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+    director: PropTypes.string.isRequired,
+    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+    previewSrc: PropTypes.string.isRequired,
+    runTime: PropTypes.number.isRequired,
+  }).isRequired,
   onCardClick: PropTypes.func.isRequired,
+  onVisibilityChange: PropTypes.func.isRequired,
   selectedMovieId: PropTypes.number.isRequired,
+  isFullVideoPlayerVisible: PropTypes.bool.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -72,12 +87,16 @@ App.propTypes = {
 
 const mapStateToProps = (state) => ({
   films: state.movieCards,
-  selectedMovieId: state.selectedMovieId
+  selectedMovieId: state.selectedMovieId,
+  isFullVideoPlayerVisible: state.isFullVideoPlayerVisible
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCardClick(id) {
     dispatch(ActionCreator.setMovieCardId(id));
+  },
+  onVisibilityChange() {
+    dispatch(ActionCreator.changeVisibility());
   }
 });
 

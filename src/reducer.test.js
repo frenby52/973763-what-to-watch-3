@@ -243,7 +243,8 @@ describe(`Reducer tests group`, () => {
       movieCards: films,
       genres: allGenres,
       showingCardsCount: FilmsCount.ON_START,
-      selectedMovieId: -1
+      selectedMovieId: -1,
+      isFullVideoPlayerVisible: false
     });
   });
 
@@ -313,6 +314,16 @@ describe(`Reducer tests group`, () => {
       selectedMovieId: 1
     });
   });
+
+  it(`Reducer should correctly change flag of FullVideoPlayer Visibility`, () => {
+    expect(reducer({
+      isFullVideoPlayerVisible: false
+    }, {
+      type: ActionType.CHANGE_VISIBILITY,
+    })).toEqual({
+      isFullVideoPlayerVisible: true
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -348,6 +359,12 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.setMovieCardId(1)).toEqual({
       type: ActionType.SET_MOVIE_CARD_ID,
       payload: 1
+    });
+  });
+
+  it(`Action creator for changeVisibility returns correct action`, () => {
+    expect(ActionCreator.changeVisibility()).toEqual({
+      type: ActionType.CHANGE_VISIBILITY,
     });
   });
 });
