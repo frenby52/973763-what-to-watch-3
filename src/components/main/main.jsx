@@ -1,21 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/films/films";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player.js";
-
 const MoviesListWrapped = withActiveItem(MoviesList);
 const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
+import {changeGenreFilter, getGenresList, getShowingCardsCount, getPromoFilm} from "../../reducer/films/selectors.js";
 
 const Main = (props) => {
-  const {promoFilm, films, onCardClick, genres, filterType, onFilterClick, onShowMoreClick, showingCardsCount, isFullVideoPlayerVisible,
-    onVisibilityChange} = props;
-  const {title, genre, releaseDate} = promoFilm;
+  const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, isFullVideoPlayerVisible, onVisibilityChange} = props;
+  const {title, genre, releaseDate, posterImage, backgroundImage} = promoFilm;
 
   return isFullVideoPlayerVisible ? (
     <FullVideoPlayerWrapped
@@ -27,7 +26,7 @@ const Main = (props) => {
   ) : (<React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
-        <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+        <img src={backgroundImage} alt={title}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -51,7 +50,7 @@ const Main = (props) => {
       <div className="movie-card__wrap">
         <div className="movie-card__info">
           <div className="movie-card__poster">
-            <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+            <img src={posterImage} alt={`${title} poster`} width="218" height="327"/>
           </div>
 
           <div className="movie-card__desc">
@@ -108,6 +107,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  // promoFilm: PropTypes.object.isRequired,
   promoFilm: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -151,15 +151,16 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filterType: state.filterType,
-  genres: state.genres,
-  showingCardsCount: state.showingCardsCount
+  promoFilm: getPromoFilm(state),
+  filterType: changeGenreFilter(state),
+  genres: getGenresList(state),
+  showingCardsCount: getShowingCardsCount(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onFilterClick(filterType) {
     dispatch(ActionCreator.changeGenreFilter(filterType));
-    dispatch(ActionCreator.getFilteredMovieCards(filterType));
+    // dispatch(ActionCreator.getFilteredMovieCards(filterType));
     dispatch(ActionCreator.resetShowingCardsCount());
   },
   onShowMoreClick() {

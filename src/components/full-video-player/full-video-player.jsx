@@ -12,11 +12,11 @@ const FullVideoPlayer = (props) => {
         className="player__video"
         onClick={onPlayButtonClick}
         muted={muted}
-        poster={`img/${film.previewImage}`}
+        poster={film.posterImage}
         autoPlay={autoPlay}
         onLoadedMetadata={onLoadedMetadata}
         onTimeUpdate={onTimeUpdate}
-        src={film.previewSrc}
+        src={film.videoLink}
       >
       </video>
 
@@ -79,6 +79,7 @@ FullVideoPlayer.propTypes = {
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string).isRequired,
     previewSrc: PropTypes.string.isRequired,
+    videoLink: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   }).isRequired,
   muted: PropTypes.bool.isRequired,

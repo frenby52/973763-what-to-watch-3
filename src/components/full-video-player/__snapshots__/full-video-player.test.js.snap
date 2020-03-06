@@ -11,8 +11,7 @@ exports[`VideoPlayer component should render correct 1`] = `
     onClick={[Function]}
     onLoadedMetadata={[Function]}
     onTimeUpdate={[Function]}
-    poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-    src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+    poster="the-grand-budapest-hotel-poster.jpg"
   />
   <button
     className="player__exit"
