@@ -43,6 +43,10 @@ const Operation = {
       .then(Film.parseFilms)
       .then((response) => {
         dispatch(ActionCreator.loadFilms(response));
+      })
+      .catch((err) => {
+        // console.log(err.response.data.error);
+        throw err;
       });
   },
   loadPromoFilm: () => (dispatch, getState, api) => {
@@ -51,7 +55,10 @@ const Operation = {
      .then(Film.parseFilm)
      .then((response) => {
        dispatch(ActionCreator.loadPromoFilm(response));
-     });
+     })
+      .catch((err) => {
+        throw err;
+      });
   }
 };
 
