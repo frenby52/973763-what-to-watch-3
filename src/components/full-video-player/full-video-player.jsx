@@ -6,9 +6,7 @@ const FullVideoPlayer = (props) => {
 
   return (
     <div className="player">
-
       {children}
-
       <button type="button" className="player__exit" onClick={onExitButtonClick}>Exit</button>
 
       <div className="player__controls">
