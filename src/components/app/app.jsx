@@ -7,7 +7,8 @@ import MoviePage from "../movie-page/movie-page.jsx";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {ActionCreator} from "../../reducer/films/films";
 const MoviePageWrapped = withActiveItem(MoviePage);
-import {getFilteredMovieCards, getSelectedMovieId, isFullPlayerVisible} from "../../reducer/films/selectors.js";
+import {getFilteredMovieCards, getSelectedMovieId, isFullPlayerVisible, isPromoLoading} from "../../reducer/films/selectors.js";
+import Loader from "../loader/loader";
 
 const SIMILAR_FILMS_COUNT = 4;
 
@@ -17,7 +18,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {films, onCardClick, selectedMovieId, isFullVideoPlayerVisible, onVisibilityChange} = this.props;
+    const {films, onCardClick, selectedMovieId, isFullVideoPlayerVisible, onVisibilityChange, isPromoFilmLoading} = this.props;
 
     if (selectedMovieId >= 0) {
       const selectedMovie = films.find((film) => film.id === selectedMovieId);
@@ -26,7 +27,7 @@ class App extends React.PureComponent {
       return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
     }
 
-    return <Main films={films} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
+    return isPromoFilmLoading ? <Loader/> : <Main films={films} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
   }
 
   render() {
@@ -52,6 +53,7 @@ App.propTypes = {
   onVisibilityChange: PropTypes.func.isRequired,
   selectedMovieId: PropTypes.number.isRequired,
   isFullVideoPlayerVisible: PropTypes.bool.isRequired,
+  isPromoFilmLoading: PropTypes.bool.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -74,7 +76,8 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   films: getFilteredMovieCards(state),
   selectedMovieId: getSelectedMovieId(state),
-  isFullVideoPlayerVisible: isFullPlayerVisible(state)
+  isFullVideoPlayerVisible: isFullPlayerVisible(state),
+  isPromoFilmLoading: isPromoLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

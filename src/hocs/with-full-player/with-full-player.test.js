@@ -7,7 +7,7 @@ const MockComponent = () => <div />;
 const MockComponentWrapped = withFullPlayer(MockComponent);
 
 it(`withFullPlayer HOC is rendered correctly`, () => {
-  const tree = renderer.create(<MockComponentWrapped />).toJSON();
+  const tree = renderer.create(<MockComponentWrapped autoPlay={false}/>).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

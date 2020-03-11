@@ -279,7 +279,8 @@ describe(`Reducer tests group`, () => {
       filterType: ALL_GENRES,
       showingCardsCount: FilmsCount.ON_START,
       selectedMovieId: -1,
-      isFullVideoPlayerVisible: false
+      isFullVideoPlayerVisible: false,
+      isPromoLoading: false
     });
   });
 
@@ -305,7 +306,7 @@ describe(`Reducer tests group`, () => {
     });
   });
 
-  it(`Reducer should return correctly set new filter by a given value`, () => {
+  it(`Reducer should correctly set new filter by a given value`, () => {
     expect(reducer({
       filterType: ALL_GENRES,
     }, {
@@ -366,6 +367,17 @@ describe(`Reducer tests group`, () => {
       isFullVideoPlayerVisible: true
     });
   });
+
+  it(`Reducer should correctly set promo film load state by a given value`, () => {
+    expect(reducer({
+      isPromoLoading: false,
+    }, {
+      type: ActionType.SET_LOADER_STATE,
+      payload: true
+    })).toEqual({
+      isPromoLoading: true,
+    });
+  });
 });
 
 describe(`Action creators work correctly`, () => {
@@ -416,6 +428,13 @@ describe(`Action creators work correctly`, () => {
       type: ActionType.CHANGE_VISIBILITY,
     });
   });
+
+  it(`Action creator for setLoaderState returns correct action`, () => {
+    expect(ActionCreator.setLoaderState(true)).toEqual({
+      type: ActionType.SET_LOADER_STATE,
+      payload: true
+    });
+  });
 });
 
 describe(`Operation work correctly`, () => {
@@ -443,11 +462,22 @@ describe(`Operation work correctly`, () => {
     apiMock.onGet(`/films/promo`).reply(200, {});
 
     return moviesLoader(dispatch, () => {}, api).then(() => {
-      expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: ActionType.LOAD_PROMO_FILM,
-        payload: {}
-      });
+      expect(dispatch).toHaveBeenCalledTimes(3);
+      expect(dispatch).toHaveBeenNthCalledWith(1,
+          {
+            type: ActionType.SET_LOADER_STATE,
+            payload: true
+          });
+      expect(dispatch).toHaveBeenNthCalledWith(2,
+          {
+            type: ActionType.LOAD_PROMO_FILM,
+            payload: {}
+          });
+      expect(dispatch).toHaveBeenNthCalledWith(3,
+          {
+            type: ActionType.SET_LOADER_STATE,
+            payload: false
+          });
     });
   });
 });

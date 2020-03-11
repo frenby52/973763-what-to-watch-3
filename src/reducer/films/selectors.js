@@ -16,6 +16,8 @@ export const getSelectedMovieId = (state) => state[NameSpace.FILMS].selectedMovi
 
 export const isFullPlayerVisible = (state) => state[NameSpace.FILMS].isFullVideoPlayerVisible;
 
+export const isPromoLoading = (state) => state[NameSpace.FILMS].isPromoLoading;
+
 export const getGenresList = createSelector(
     getFilms,
     (films) => {

@@ -13,7 +13,8 @@ const initialState = {
   filterType: ALL_GENRES,
   showingCardsCount: FilmsCount.ON_START,
   selectedMovieId: -1,
-  isFullVideoPlayerVisible: false
+  isFullVideoPlayerVisible: false,
+  isPromoLoading: false
 };
 
 const ActionType = {
@@ -23,7 +24,8 @@ const ActionType = {
   RESET_SHOWING_CARDS_COUNT: `RESET_SHOWING_CARDS_COUNT`,
   SET_MOVIE_CARD_ID: `SET_MOVIE_CARD_ID`,
   CHANGE_VISIBILITY: `CHANGE_VISIBILITY`,
-  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
+  SET_LOADER_STATE: `SET_LOADER_STATE`
 };
 
 const ActionCreator = {
@@ -34,6 +36,7 @@ const ActionCreator = {
   resetShowingCardsCount: () => ({type: ActionType.RESET_SHOWING_CARDS_COUNT, payload: FilmsCount.ON_START}),
   setMovieCardId: (id) => ({type: ActionType.SET_MOVIE_CARD_ID, payload: id}),
   changeVisibility: () => ({type: ActionType.CHANGE_VISIBILITY}),
+  setLoaderState: (isPromoLoading) => ({type: ActionType.SET_LOADER_STATE, payload: isPromoLoading}),
 };
 
 const Operation = {
@@ -50,11 +53,14 @@ const Operation = {
       });
   },
   loadPromoFilm: () => (dispatch, getState, api) => {
+    dispatch(ActionCreator.setLoaderState(true));
+
     return api.get(`/films/promo`)
      .then((response) => response.data)
      .then(Film.parseFilm)
      .then((response) => {
        dispatch(ActionCreator.loadPromoFilm(response));
+       dispatch(ActionCreator.setLoaderState(false));
      })
       .catch((err) => {
         throw err;
@@ -84,6 +90,9 @@ const reducer = (state = initialState, action) => {
 
     case ActionType.CHANGE_VISIBILITY:
       return Object.assign({}, state, {isFullVideoPlayerVisible: !state.isFullVideoPlayerVisible});
+
+    case ActionType.SET_LOADER_STATE:
+      return Object.assign({}, state, {isPromoLoading: action.payload});
   }
 
   return state;
