@@ -59,11 +59,7 @@ MockComponent.propTypes = {
 const MockComponentWrapped = withFullPlayer(MockComponent);
 
 it(`withFullPlayer HOC is rendered correctly`, () => {
-  const tree = renderer.create((<MockComponentWrapped autoPlay={false} film={promoFilm} muted={false}/>), {
-    createNodeMock() {
-      return {};
-    }
-  }).toJSON();
+  const tree = renderer.create(<MockComponentWrapped autoPlay={false} film={promoFilm} muted={false}/>).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
