@@ -5,8 +5,10 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
-import {ActionCreator} from "../../reducer";
+import {ActionCreator} from "../../reducer/films/films";
 const MoviePageWrapped = withActiveItem(MoviePage);
+import {getFilteredMovieCards, getSelectedMovieId, isFullPlayerVisible, isPromoLoading} from "../../reducer/films/selectors.js";
+import Loader from "../loader/loader";
 
 const SIMILAR_FILMS_COUNT = 4;
 
@@ -16,7 +18,7 @@ class App extends React.PureComponent {
   }
 
   _renderApp() {
-    const {promoFilm, films, onCardClick, selectedMovieId, isFullVideoPlayerVisible, onVisibilityChange} = this.props;
+    const {films, onCardClick, selectedMovieId, isFullVideoPlayerVisible, onVisibilityChange, isPromoFilmLoading} = this.props;
 
     if (selectedMovieId >= 0) {
       const selectedMovie = films.find((film) => film.id === selectedMovieId);
@@ -25,7 +27,7 @@ class App extends React.PureComponent {
       return <MoviePageWrapped film={selectedMovie} similarFilms={similarFilms} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
     }
 
-    return <Main promoFilm={promoFilm} films={films} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
+    return isPromoFilmLoading ? <Loader/> : <Main films={films} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />;
   }
 
   render() {
@@ -47,26 +49,11 @@ class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  promoFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
   onCardClick: PropTypes.func.isRequired,
   onVisibilityChange: PropTypes.func.isRequired,
   selectedMovieId: PropTypes.number.isRequired,
   isFullVideoPlayerVisible: PropTypes.bool.isRequired,
+  isPromoFilmLoading: PropTypes.bool.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -85,10 +72,12 @@ App.propTypes = {
   })).isRequired
 };
 
+
 const mapStateToProps = (state) => ({
-  films: state.movieCards,
-  selectedMovieId: state.selectedMovieId,
-  isFullVideoPlayerVisible: state.isFullVideoPlayerVisible
+  films: getFilteredMovieCards(state),
+  selectedMovieId: getSelectedMovieId(state),
+  isFullVideoPlayerVisible: isFullPlayerVisible(state),
+  isPromoFilmLoading: isPromoLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

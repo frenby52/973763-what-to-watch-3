@@ -16,6 +16,7 @@ const film = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   runTime: 20,
   comments: [
     {
@@ -43,19 +44,14 @@ it(`VideoPlayer component should render correct`, () => {
         <FullVideoPlayer
           onExitButtonClick={() => {}}
           film={film}
-          autoPlay={true}
-          muted={false}
           isPlaying={false}
           onPlayButtonClick={() => {}}
           onFullscreenButtonClick={() => {}}
           getElapsedTime={() => {}}
           getPlaybackProgress={() => {}}
-          onLoadedMetadata={() => {}}
-          onTimeUpdate={() => {}}
-          videoRef={React.createRef()}
-        />
-    )
-    .toJSON();
+        >
+          <video />
+        </FullVideoPlayer>).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

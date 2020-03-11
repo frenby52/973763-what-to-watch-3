@@ -18,7 +18,7 @@ const SmallMovieCard = (props) => {
         <VideoPlayer
           src={previewSrc}
           isPlaying={film.id === activeFilm}
-          previewImage={`img/${previewImage}`}
+          previewImage={previewImage}
           muted={true}
         />
       </div>
