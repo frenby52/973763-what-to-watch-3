@@ -4,15 +4,7 @@ exports[`VideoPlayer component should render correct 1`] = `
 <div
   className="player"
 >
-  <video
-    autoPlay={true}
-    className="player__video"
-    muted={false}
-    onClick={[Function]}
-    onLoadedMetadata={[Function]}
-    onTimeUpdate={[Function]}
-    poster="the-grand-budapest-hotel-poster.jpg"
-  />
+  <video />
   <button
     className="player__exit"
     onClick={[Function]}

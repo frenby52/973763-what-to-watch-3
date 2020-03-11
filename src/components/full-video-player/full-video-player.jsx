@@ -2,23 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const FullVideoPlayer = (props) => {
-  const {onExitButtonClick, film, muted, autoPlay, isPlaying, onPlayButtonClick, onFullscreenButtonClick, getPlaybackProgress, getElapsedTime, videoRef, onLoadedMetadata, onTimeUpdate} = props;
+  const {onExitButtonClick, film, isPlaying, onFullscreenButtonClick, getPlaybackProgress, getElapsedTime, onPlayButtonClick, children} = props;
 
   return (
     <div className="player">
 
-      <video
-        ref={videoRef}
-        className="player__video"
-        onClick={onPlayButtonClick}
-        muted={muted}
-        poster={film.posterImage}
-        autoPlay={autoPlay}
-        onLoadedMetadata={onLoadedMetadata}
-        onTimeUpdate={onTimeUpdate}
-        src={film.videoLink}
-      >
-      </video>
+      {children}
 
       <button type="button" className="player__exit" onClick={onExitButtonClick}>Exit</button>
 
@@ -82,19 +71,15 @@ FullVideoPlayer.propTypes = {
     videoLink: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   }).isRequired,
-  muted: PropTypes.bool.isRequired,
-  autoPlay: PropTypes.bool.isRequired,
   isPlaying: PropTypes.bool.isRequired,
   onPlayButtonClick: PropTypes.func.isRequired,
   onFullscreenButtonClick: PropTypes.func.isRequired,
   getPlaybackProgress: PropTypes.func.isRequired,
   getElapsedTime: PropTypes.func.isRequired,
-  videoRef: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.shape({current: PropTypes.instanceOf(Element)})
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
   ]).isRequired,
-  onLoadedMetadata: PropTypes.func.isRequired,
-  onTimeUpdate: PropTypes.func.isRequired
 
 };
 export default FullVideoPlayer;

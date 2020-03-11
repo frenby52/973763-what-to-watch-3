@@ -1,3 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`withFullPlayer HOC is rendered correctly 1`] = `<div />`;
+exports[`withFullPlayer HOC is rendered correctly 1`] = `
+<div>
+  <video
+    autoPlay={false}
+    className="player__video"
+    muted={false}
+    onClick={[Function]}
+    onLoadedMetadata={[Function]}
+    onTimeUpdate={[Function]}
+    poster="the-grand-budapest-hotel-poster.jpg"
+    src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+  />
+</div>
+`;
