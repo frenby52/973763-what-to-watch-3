@@ -64,19 +64,19 @@ describe(`Operation work correctly`, () => {
     const dispatch = jest.fn();
     const checkAuth = Operation.checkAuth();
 
-    apiMock.onGet(`/login`).reply(200, {});
+    apiMock.onGet(`/login`).reply(200, {
+      'id': 1,
+      'email': `Oliver.conner@gmail.com`,
+      'name': `Oliver.conner`,
+      'avatar_url': `img/1.png`
+    });
 
     return checkAuth(dispatch, () => {}, api).then(() => {
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1,
           {
             type: ActionType.SET_AUTH_USER_DATA,
-            payload: {
-              id: ``,
-              email: ``,
-              name: ``,
-              avatarUrl: ``
-            }
+            payload: authDataMock
           });
       expect(dispatch).toHaveBeenNthCalledWith(2,
           {
