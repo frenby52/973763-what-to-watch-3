@@ -7,6 +7,7 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
+import UserBlock from "../user-block/user-block.jsx";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player.js";
 const MoviesListWrapped = withActiveItem(MoviesList);
 const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
@@ -40,11 +41,7 @@ const Main = (props) => {
           </a>
         </div>
 
-        <div className="user-block">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </div>
+        <UserBlock />
       </header>
 
       <div className="movie-card__wrap">

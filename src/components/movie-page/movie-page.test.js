@@ -135,6 +135,8 @@ const films = [
 
 const similarFilms = films.slice(0, 4);
 
+jest.mock(`../user-block/user-block.jsx`, () => `user-block`);
+
 it(`MoviePage component should render correct`, () => {
   const tree = renderer
     .create(<MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} />, {

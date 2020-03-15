@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserBlock component should render correct 1`] = `
+<div
+  className="user-block"
+>
+  <div
+    className="user-block__avatar"
+  >
+    <img
+      alt="Oliver.conner"
+      height="63"
+      src="https://htmlacademy-react-3.appspot.com/img/1.png"
+      width="63"
+    />
+  </div>
+</div>
+`;
