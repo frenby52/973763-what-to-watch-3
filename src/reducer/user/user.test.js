@@ -57,7 +57,6 @@ describe(`Action creators work correctly`, () => {
   });
 });
 
-
 describe(`Operation work correctly`, () => {
   it(`Should make a correct API call to /login`, function () {
     const apiMock = new MockAdapter(api);
