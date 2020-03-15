@@ -44,20 +44,7 @@ Array [
           </span>
         </a>
       </div>
-      <div
-        className="user-block"
-      >
-        <div
-          className="user-block__avatar"
-        >
-          <img
-            alt="User avatar"
-            height="63"
-            src="img/avatar.jpg"
-            width="63"
-          />
-        </div>
-      </div>
+      <user-block />
     </header>
     <div
       className="movie-card__wrap"

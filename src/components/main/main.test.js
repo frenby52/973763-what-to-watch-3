@@ -170,6 +170,8 @@ const films = [
   },
 ];
 
+jest.mock(`../user-block/user-block.jsx`, () => `user-block`);
+
 it(`Main component should render correct`, () => {
   const tree = renderer
     .create(<Main promoFilm={promoFilmMock} films={films} onCardClick={() => {}} genres={[ALL_GENRES]} filterType={ALL_GENRES} onFilterClick={() => {}} showingCardsCount={8} onShowMoreClick={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} />, {

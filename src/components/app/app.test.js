@@ -133,10 +133,12 @@ const films = [
   },
 ];
 
+jest.mock(`../user-block/user-block.jsx`, () => `user-block`);
+
 it(`App render correct`, () => {
   const tree = renderer
     .create(
-        <App films={films} selectedMovieId={0} onCardClick={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} isPromoFilmLoading={false}/>, {
+        <App films={films} selectedMovieId={0} onCardClick={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} isPromoFilmLoading={false} login={() => {}}/>, {
           createNodeMock: () => {
             return {};
           }

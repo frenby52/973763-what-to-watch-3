@@ -271,7 +271,7 @@ const FilmsCount = {
 
 const ALL_GENRES = `All genres`;
 
-describe(`Reducer tests group`, () => {
+describe(`Reducer tests group for films`, () => {
   it(`Reducer without additional parameters should return initial state`, () => {
     expect(reducer(void 0, {})).toEqual({
       movieCards: [],

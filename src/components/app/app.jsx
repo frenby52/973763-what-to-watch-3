@@ -4,11 +4,13 @@ import {connect} from "react-redux";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import SignIn from "../sign-in/sign-in.jsx";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {ActionCreator} from "../../reducer/films/films";
 const MoviePageWrapped = withActiveItem(MoviePage);
 import {getFilteredMovieCards, getSelectedMovieId, isFullPlayerVisible, isPromoLoading} from "../../reducer/films/selectors.js";
 import Loader from "../loader/loader";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
 const SIMILAR_FILMS_COUNT = 4;
 
@@ -31,7 +33,7 @@ class App extends React.PureComponent {
   }
 
   render() {
-    const {films, onCardClick, isFullVideoPlayerVisible, onVisibilityChange} = this.props;
+    const {films, onCardClick, isFullVideoPlayerVisible, onVisibilityChange, login} = this.props;
 
     return (
       <BrowserRouter>
@@ -42,6 +44,9 @@ class App extends React.PureComponent {
           <Route exact path="/dev-film">
             <MoviePageWrapped film={films[0]} similarFilms={films.slice(0, SIMILAR_FILMS_COUNT)} onCardClick={onCardClick} isFullVideoPlayerVisible={isFullVideoPlayerVisible} onVisibilityChange={onVisibilityChange} />
           </Route>
+          <Route exact path="/auth">
+            <SignIn onFormSubmit={login} />
+          </Route>
         </Switch>
       </BrowserRouter>
     );
@@ -50,6 +55,7 @@ class App extends React.PureComponent {
 
 App.propTypes = {
   onCardClick: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   onVisibilityChange: PropTypes.func.isRequired,
   selectedMovieId: PropTypes.number.isRequired,
   isFullVideoPlayerVisible: PropTypes.bool.isRequired,
@@ -72,7 +78,6 @@ App.propTypes = {
   })).isRequired
 };
 
-
 const mapStateToProps = (state) => ({
   films: getFilteredMovieCards(state),
   selectedMovieId: getSelectedMovieId(state),
@@ -86,6 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onVisibilityChange() {
     dispatch(ActionCreator.changeVisibility());
+  },
+  login(data) {
+    dispatch(UserOperation.login(data));
   }
 });
 
