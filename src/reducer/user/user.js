@@ -1,4 +1,5 @@
 import User from '../../models/user';
+import history from "../../history.js";
 
 const initialState = {
   authUserData: null,
@@ -57,6 +58,7 @@ const Operation = {
 
         dispatch(ActionCreator.setAuthUserData(userData));
         dispatch(ActionCreator.setAuthStatus(true));
+        history.push(`/`);
       })
       .catch((err) => {
         throw err;

@@ -133,6 +133,8 @@ const films = [
   },
 ];
 
+jest.mock(`react-router-dom`, () => ({Link: `Link`}));
+
 it(`MoviesList component should render correct`, () => {
   const tree = renderer
     .create(<MoviesList films={films} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}}/>, {

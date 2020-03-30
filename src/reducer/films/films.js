@@ -14,7 +14,7 @@ const initialState = {
   showingCardsCount: FilmsCount.ON_START,
   selectedMovieId: -1,
   isFullVideoPlayerVisible: false,
-  isPromoLoading: false
+  isAppLoading: false
 };
 
 const ActionType = {
@@ -36,7 +36,7 @@ const ActionCreator = {
   resetShowingCardsCount: () => ({type: ActionType.RESET_SHOWING_CARDS_COUNT, payload: FilmsCount.ON_START}),
   setMovieCardId: (id) => ({type: ActionType.SET_MOVIE_CARD_ID, payload: id}),
   changeVisibility: () => ({type: ActionType.CHANGE_VISIBILITY}),
-  setLoaderState: (isPromoLoading) => ({type: ActionType.SET_LOADER_STATE, payload: isPromoLoading}),
+  setLoaderState: (isAppLoading) => ({type: ActionType.SET_LOADER_STATE, payload: isAppLoading}),
 };
 
 const Operation = {
@@ -53,14 +53,12 @@ const Operation = {
       });
   },
   loadPromoFilm: () => (dispatch, getState, api) => {
-    dispatch(ActionCreator.setLoaderState(true));
 
     return api.get(`/films/promo`)
      .then((response) => response.data)
      .then(Film.parseFilm)
      .then((response) => {
        dispatch(ActionCreator.loadPromoFilm(response));
-       dispatch(ActionCreator.setLoaderState(false));
      })
       .catch((err) => {
         throw err;
@@ -92,7 +90,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {isFullVideoPlayerVisible: !state.isFullVideoPlayerVisible});
 
     case ActionType.SET_LOADER_STATE:
-      return Object.assign({}, state, {isPromoLoading: action.payload});
+      return Object.assign({}, state, {isAppLoading: action.payload});
   }
 
   return state;

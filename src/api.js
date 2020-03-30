@@ -1,4 +1,5 @@
 import axios from "axios";
+import history from "./history.js";
 
 const TIMEOUT = 5000;
 const BASE_URL = `https://htmlacademy-react-3.appspot.com/wtw`;
@@ -21,11 +22,15 @@ export const createAPI = (onUnauthorized) => {
   };
 
   const onFail = (err) => {
-    const {response} = err;
+    const {response, request} = err;
 
     if (response.status === Error.UNAUTHORIZED) {
       onUnauthorized();
-      // console.log(`not authed`)
+
+      if (request.responseURL !== BASE_URL + `/login`) {
+        history.push(`/login`);
+      }
+
       throw err;
     }
 

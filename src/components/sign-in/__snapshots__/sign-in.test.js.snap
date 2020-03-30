@@ -10,9 +10,9 @@ exports[`SignIn component should render correct 1`] = `
     <div
       className="logo"
     >
-      <a
+      <Link
         className="logo__link"
-        href="main.html"
+        to="/"
       >
         <span
           className="logo__letter logo__letter--1"
@@ -29,7 +29,7 @@ exports[`SignIn component should render correct 1`] = `
         >
           W
         </span>
-      </a>
+      </Link>
     </div>
     <h1
       className="page-title user-page__title"
@@ -105,9 +105,9 @@ exports[`SignIn component should render correct 1`] = `
     <div
       className="logo"
     >
-      <a
+      <Link
         className="logo__link logo__link--light"
-        href="main.html"
+        to="/"
       >
         <span
           className="logo__letter logo__letter--1"
@@ -124,7 +124,7 @@ exports[`SignIn component should render correct 1`] = `
         >
           W
         </span>
-      </a>
+      </Link>
     </div>
     <div
       className="copyright"

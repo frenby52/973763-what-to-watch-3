@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import SmallMovieCard from "./small-movie-card.jsx";
 
 const film = {
   id: 0,
@@ -18,6 +18,8 @@ const film = {
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   runTime: 20,
 };
+
+jest.mock(`react-router-dom`, () => ({Link: `Link`}));
 
 it(`SmallMovieCard component should render correct`, () => {
   const tree = renderer

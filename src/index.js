@@ -6,20 +6,36 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import {createAPI} from "./api.js";
 import reducer from "./reducer/reducer.js";
-import {Operation as FilmsOperation} from "./reducer/films/films.js";
-import {Operation as UserOperation, ActionCreator} from "./reducer/user/user.js";
+import {Operation as FilmsOperation, ActionCreator} from "./reducer/films/films.js";
+import {Operation as UserOperation, ActionCreator as UserActionCreator} from "./reducer/user/user.js";
 
 const onUnauthorized = () => {
-  store.dispatch(ActionCreator.setAuthStatus(false));
+  store.dispatch(UserActionCreator.setAuthStatus(false));
   // console.log(`onUnauthorized`)
 };
 
 const api = createAPI(onUnauthorized);
 const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f));
 
-store.dispatch(FilmsOperation.loadFilms());
-store.dispatch(FilmsOperation.loadPromoFilm());
-store.dispatch(UserOperation.checkAuth());
+const init = () => {
+  store.dispatch(ActionCreator.setLoaderState(true));
+  const loadPromoFilm = store.dispatch(FilmsOperation.loadPromoFilm());
+  const loadFilms = store.dispatch(FilmsOperation.loadFilms());
+
+  return Promise.all([loadPromoFilm, loadFilms])
+    .then(() => {
+      store.dispatch(ActionCreator.setLoaderState(false));
+      store.dispatch(UserOperation.checkAuth());
+    }).catch((err) => {
+      throw err;
+    });
+};
+
+init();
+
+// store.dispatch(FilmsOperation.loadFilms());
+// store.dispatch(FilmsOperation.loadPromoFilm());
+// store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
