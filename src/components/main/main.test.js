@@ -171,6 +171,7 @@ const films = [
 ];
 
 jest.mock(`../user-block/user-block.jsx`, () => `user-block`);
+jest.mock(`react-router-dom`, () => ({Link: `Link`}));
 
 it(`Main component should render correct`, () => {
   const tree = renderer

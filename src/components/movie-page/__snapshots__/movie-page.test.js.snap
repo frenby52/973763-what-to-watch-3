@@ -27,9 +27,9 @@ Array [
         <div
           className="logo"
         >
-          <a
+          <Link
             className="logo__link"
-            href="main.html"
+            to="/"
           >
             <span
               className="logo__letter logo__letter--1"
@@ -46,7 +46,7 @@ Array [
             >
               W
             </span>
-          </a>
+          </Link>
         </div>
         <user-block />
       </header>
@@ -113,12 +113,6 @@ Array [
                 My list
               </span>
             </button>
-            <a
-              className="btn movie-card__button"
-              href="add-review.html"
-            >
-              Add review
-            </a>
           </div>
         </div>
       </div>
@@ -255,24 +249,32 @@ Array [
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <Link
+            style={
+              Object {
+                "color": "unset",
+              }
+            }
+            to="/films/0"
           >
-            <video
-              height="175"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="#"
+            <div
+              className="small-movie-card__image"
             >
-              The Grand Budapest Hotel
-            </a>
-          </h3>
+              <video
+                height="175"
+                width="280"
+              />
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              <span
+                className="small-movie-card__link"
+              >
+                The Grand Budapest Hotel
+              </span>
+            </h3>
+          </Link>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
@@ -280,24 +282,32 @@ Array [
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <Link
+            style={
+              Object {
+                "color": "unset",
+              }
+            }
+            to="/films/1"
           >
-            <video
-              height="175"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="#"
+            <div
+              className="small-movie-card__image"
             >
-              Bohemian Rhapsody
-            </a>
-          </h3>
+              <video
+                height="175"
+                width="280"
+              />
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              <span
+                className="small-movie-card__link"
+              >
+                Bohemian Rhapsody
+              </span>
+            </h3>
+          </Link>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
@@ -305,24 +315,32 @@ Array [
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <Link
+            style={
+              Object {
+                "color": "unset",
+              }
+            }
+            to="/films/2"
           >
-            <video
-              height="175"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="#"
+            <div
+              className="small-movie-card__image"
             >
-              Macbeth
-            </a>
-          </h3>
+              <video
+                height="175"
+                width="280"
+              />
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              <span
+                className="small-movie-card__link"
+              >
+                Macbeth
+              </span>
+            </h3>
+          </Link>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
@@ -330,24 +348,32 @@ Array [
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <Link
+            style={
+              Object {
+                "color": "unset",
+              }
+            }
+            to="/films/3"
           >
-            <video
-              height="175"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="#"
+            <div
+              className="small-movie-card__image"
             >
-              Aviator
-            </a>
-          </h3>
+              <video
+                height="175"
+                width="280"
+              />
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              <span
+                className="small-movie-card__link"
+              >
+                Aviator
+              </span>
+            </h3>
+          </Link>
         </article>
       </div>
     </section>
@@ -357,9 +383,9 @@ Array [
       <div
         className="logo"
       >
-        <a
+        <Link
           className="logo__link logo__link--light"
-          href="main.html"
+          to="/"
         >
           <span
             className="logo__letter logo__letter--1"
@@ -376,7 +402,7 @@ Array [
           >
             W
           </span>
-        </a>
+        </Link>
       </div>
       <div
         className="copyright"

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import VideoPlayer from "../video-player/video-player.jsx";
+import {Link} from "react-router-dom";
 
 const SmallMovieCard = (props) => {
   const {film, onCardClick, onCardMouseEnter, onCardMouseLeave, activeFilm} = props;
@@ -14,17 +15,19 @@ const SmallMovieCard = (props) => {
       }}
       onMouseEnter={() => onCardMouseEnter(film.id)}
       onMouseLeave={() => onCardMouseLeave()}>
-      <div className="small-movie-card__image">
-        <VideoPlayer
-          src={previewSrc}
-          isPlaying={film.id === activeFilm}
-          previewImage={previewImage}
-          muted={true}
-        />
-      </div>
-      <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="#">{title}</a>
-      </h3>
+      <Link to={`/films/${film.id}`} style={{color: `unset`}}>
+        <div className="small-movie-card__image">
+          <VideoPlayer
+            src={previewSrc}
+            isPlaying={film.id === activeFilm}
+            previewImage={previewImage}
+            muted={true}
+          />
+        </div>
+        <h3 className="small-movie-card__title">
+          <span className="small-movie-card__link">{title}</span>
+        </h3>
+      </Link>
     </article>
   );
 };

@@ -7,23 +7,31 @@ exports[`SmallMovieCard component should render correct 1`] = `
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
-    className="small-movie-card__image"
+  <Link
+    style={
+      Object {
+        "color": "unset",
+      }
+    }
+    to="/films/0"
   >
-    <video
-      height="175"
-      width="280"
-    />
-  </div>
-  <h3
-    className="small-movie-card__title"
-  >
-    <a
-      className="small-movie-card__link"
-      href="#"
+    <div
+      className="small-movie-card__image"
     >
-      The Grand Budapest Hotel
-    </a>
-  </h3>
+      <video
+        height="175"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <span
+        className="small-movie-card__link"
+      >
+        The Grand Budapest Hotel
+      </span>
+    </h3>
+  </Link>
 </article>
 `;

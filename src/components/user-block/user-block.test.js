@@ -9,6 +9,8 @@ const authUserData = {
   avatarUrl: `img/1.png`
 };
 
+jest.mock(`react-router-dom`, () => ({Link: `Link`}));
+
 it(`UserBlock component should render correct`, () => {
   const tree = renderer
     .create(

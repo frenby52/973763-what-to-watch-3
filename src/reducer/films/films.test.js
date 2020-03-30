@@ -280,7 +280,7 @@ describe(`Reducer tests group for films`, () => {
       showingCardsCount: FilmsCount.ON_START,
       selectedMovieId: -1,
       isFullVideoPlayerVisible: false,
-      isPromoLoading: false
+      isAppLoading: false
     });
   });
 
@@ -370,12 +370,12 @@ describe(`Reducer tests group for films`, () => {
 
   it(`Reducer should correctly set promo film load state by a given value`, () => {
     expect(reducer({
-      isPromoLoading: false,
+      isAppLoading: false,
     }, {
       type: ActionType.SET_LOADER_STATE,
       payload: true
     })).toEqual({
-      isPromoLoading: true,
+      isAppLoading: true,
     });
   });
 });
@@ -462,21 +462,11 @@ describe(`Operation work correctly`, () => {
     apiMock.onGet(`/films/promo`).reply(200, {});
 
     return moviesLoader(dispatch, () => {}, api).then(() => {
-      expect(dispatch).toHaveBeenCalledTimes(3);
+      expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1,
-          {
-            type: ActionType.SET_LOADER_STATE,
-            payload: true
-          });
-      expect(dispatch).toHaveBeenNthCalledWith(2,
           {
             type: ActionType.LOAD_PROMO_FILM,
             payload: {}
-          });
-      expect(dispatch).toHaveBeenNthCalledWith(3,
-          {
-            type: ActionType.SET_LOADER_STATE,
-            payload: false
           });
     });
   });

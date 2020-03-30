@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import MoviePageReviews from "./movie-page-reviews";
+import {MoviePageReviews} from "./movie-page-reviews.jsx";
 
 const film = {
   id: 0,
@@ -17,29 +17,37 @@ const film = {
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   runTime: 20,
-  comments: [
-    {
-      id: 0,
-      text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-      author: `Kate Muir`,
-      date: `December 24, 2016`,
-      rating: `8,9`
+};
+
+const comments = [
+  {
+    id: 1,
+    text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+    user: {
+      id: 11,
+      name: `Kate Muir`
     },
-    {
-      id: 1,
-      text: `Andersons films are too precious for some, but for those of us willing to
+    date: `December 24, 2016`,
+    rating: 8.9
+  },
+  {
+    id: 2,
+    text: `Andersons films are too precious for some, but for those of us willing to
                 lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
                 has added a hint of gravitas to the mix, improving the recipe.`,
-      author: `Bill Goodykoontz`,
-      date: `November 18, 2015`,
-      rating: `8,0`
-    }
-  ],
-};
+    user: {
+      id: 12,
+      name: `Bill Goodykoontz`,
+    },
+    author: `Bill Goodykoontz`,
+    date: `November 18, 2015`,
+    rating: 8.1
+  }
+];
 
 it(`MoviePageReviews component should render correct`, () => {
   const tree = renderer
-    .create(<MoviePageReviews film={film} />)
+    .create(<MoviePageReviews film={film} comments={comments} loadComments={() => {}} isCommentsLoaded={true}/>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

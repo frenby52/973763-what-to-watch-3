@@ -3,6 +3,8 @@ import Enzyme, {mount} from 'enzyme';
 import SignIn from "./sign-in.jsx";
 import Adapter from "enzyme-adapter-react-16/build";
 
+jest.mock(`react-router-dom`, () => ({Link: `a`}));
+
 Enzyme.configure({
   adapter: new Adapter(),
 });

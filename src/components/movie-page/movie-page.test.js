@@ -1,6 +1,9 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MoviePage from "./movie-page";
+import configureStore from "redux-mock-store";
+import Namespace from "../../reducer/name-space.js";
+import {Provider} from "react-redux";
 
 const films = [
   {
@@ -135,15 +138,65 @@ const films = [
 
 const similarFilms = films.slice(0, 4);
 
+const comments = [
+  {
+    id: 1,
+    text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
+    user: {
+      id: 11,
+      name: `Kate Muir`
+    },
+    date: `December 24, 2016`,
+    rating: 8.9
+  },
+  {
+    id: 2,
+    text: `Andersons films are too precious for some, but for those of us willing to
+                lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
+                has added a hint of gravitas to the mix, improving the recipe.`,
+    user: {
+      id: 12,
+      name: `Bill Goodykoontz`,
+    },
+    author: `Bill Goodykoontz`,
+    date: `November 18, 2015`,
+    rating: 8.1
+  }
+];
+
 jest.mock(`../user-block/user-block.jsx`, () => `user-block`);
+jest.mock(`react-router-dom`, () => ({Link: `Link`}));
 
 it(`MoviePage component should render correct`, () => {
+
+  const mockStore = configureStore([]);
+
+  const store = mockStore({
+    [Namespace.FILMS]: {
+      movieCards: films,
+      promoFilm: films[0],
+      filterType: `All genres`,
+      showingCardsCount: 8,
+      selectedMovieId: 1,
+      isFullVideoPlayerVisible: false,
+      isAppLoading: false
+    },
+    [Namespace.USER]: {
+      authorizationStatus: false,
+    },
+    [Namespace.COMMENTS]: {
+      comments: [],
+      isCommentsLoaded: false
+    }
+  });
+
   const tree = renderer
-    .create(<MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} />, {
-      createNodeMock: () => {
-        return {};
-      }
-    })
+    .create(
+        <Provider store={store}>
+          <MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} isAuthed={false} isLoaded={true} comments={comments}/>
+        </Provider>,
+        {createNodeMock: () => ({})}
+    )
     .toJSON();
 
   expect(tree).toMatchSnapshot();
