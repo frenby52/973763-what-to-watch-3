@@ -33,10 +33,6 @@ const init = () => {
 
 init();
 
-// store.dispatch(FilmsOperation.loadFilms());
-// store.dispatch(FilmsOperation.loadPromoFilm());
-// store.dispatch(UserOperation.checkAuth());
-
 ReactDOM.render(
     <Provider store={store}>
       <App />
