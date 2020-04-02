@@ -5,28 +5,25 @@ import Tab from "../tab/tab.jsx";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MoviesList from "../movies-list/movies-list.jsx";
 import UserBlock from "../user-block/user-block.jsx";
-import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
-import withFullPlayer from "../../hocs/with-full-player/with-full-player.js";
 import {Link} from 'react-router-dom';
 import {isAuth} from "../../reducer/user/selectors";
 import {connect} from "react-redux";
 import {getComments, isCommentsLoaded} from "../../reducer/comments/selectors";
+import {Operation} from "../../reducer/user/user";
+import {isFavorite as isFavoriteSelector} from "../../reducer/films/selectors";
+import history from "../../history.js";
 
 const MoviesListWrapped = withActiveItem(MoviesList);
-const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
 
 const MoviePage = (props) => {
-  const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange, isFullVideoPlayerVisible,
-    onVisibilityChange, isAuthed, comments, isLoaded} = props;
+  const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange, isAuthed, comments, isLoaded, toggleFavorite, isFavorite} = props;
   const {title, genre, releaseDate, posterImage, backgroundImage, id} = film;
-  return isFullVideoPlayerVisible ? (
-    <FullVideoPlayerWrapped
-      onExitButtonClick={onVisibilityChange}
-      film={film}
-      autoPlay={true}
-      muted={false}
-    />
-  ) : (<React.Fragment>
+
+  const _handleFavoriteButtonClick = () => {
+    toggleFavorite(film);
+  };
+
+  return (<React.Fragment>
     <section className="movie-card movie-card--full">
       <div className="movie-card__hero">
         <div className="movie-card__bg">
@@ -56,19 +53,24 @@ const MoviePage = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={onVisibilityChange}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/films/${id}/player`)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+              <button className="btn btn--list movie-card__button" type="button" onClick={_handleFavoriteButtonClick}>
+                {isFavorite ? (
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                )}
                 <span>My list</span>
               </button>
-
               {isAuthed && (<Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>)}
             </div>
           </div>
@@ -95,10 +97,7 @@ const MoviePage = (props) => {
     <div className="page-content">
       <section className="catalog catalog--like-this">
         <h2 className="catalog__title">More like this</h2>
-
-        <div className="catalog__movies-list">
-          <MoviesListWrapped films={similarFilms} onCardClick={onCardClick}/>
-        </div>
+        <MoviesListWrapped films={similarFilms} onCardClick={onCardClick}/>
       </section>
 
       <footer className="page-footer">
@@ -154,8 +153,6 @@ MoviePage.propTypes = {
     previewSrc: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   })).isRequired,
-  onVisibilityChange: PropTypes.func.isRequired,
-  isFullVideoPlayerVisible: PropTypes.bool.isRequired,
   comments: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     user: PropTypes.shape({
@@ -168,13 +165,26 @@ MoviePage.propTypes = {
   })),
   isAuthed: PropTypes.bool.isRequired,
   isLoaded: PropTypes.bool.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  isAuthed: isAuth(state),
-  comments: getComments(state),
-  isLoaded: isCommentsLoaded(state),
+const mapStateToProps = (state, props) => {
+  const {film} = props;
+
+  return {
+    isAuthed: isAuth(state),
+    comments: getComments(state),
+    isLoaded: isCommentsLoaded(state),
+    isFavorite: isFavoriteSelector(state, film.id),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleFavorite(film) {
+    dispatch(Operation.toggleFavorite(film));
+  },
 });
 
 export {MoviePage};
-export default connect(mapStateToProps)(MoviePage);
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

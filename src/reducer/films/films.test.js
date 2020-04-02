@@ -278,8 +278,6 @@ describe(`Reducer tests group for films`, () => {
       promoFilm: {},
       filterType: ALL_GENRES,
       showingCardsCount: FilmsCount.ON_START,
-      selectedMovieId: -1,
-      isFullVideoPlayerVisible: false,
       isAppLoading: false
     });
   });
@@ -347,27 +345,6 @@ describe(`Reducer tests group for films`, () => {
     });
   });
 
-  it(`Reducer should correctly return movieCard id by a given value`, () => {
-    expect(reducer({
-      selectedMovieId: -1
-    }, {
-      type: ActionType.SET_MOVIE_CARD_ID,
-      payload: 1
-    })).toEqual({
-      selectedMovieId: 1
-    });
-  });
-
-  it(`Reducer should correctly change flag of FullVideoPlayer Visibility`, () => {
-    expect(reducer({
-      isFullVideoPlayerVisible: false
-    }, {
-      type: ActionType.CHANGE_VISIBILITY,
-    })).toEqual({
-      isFullVideoPlayerVisible: true
-    });
-  });
-
   it(`Reducer should correctly set promo film load state by a given value`, () => {
     expect(reducer({
       isAppLoading: false,
@@ -413,19 +390,6 @@ describe(`Action creators work correctly`, () => {
     expect(ActionCreator.resetShowingCardsCount()).toEqual({
       type: ActionType.RESET_SHOWING_CARDS_COUNT,
       payload: FilmsCount.BY_BUTTON
-    });
-  });
-
-  it(`Action creator for setMovieCardId returns correct action`, () => {
-    expect(ActionCreator.setMovieCardId(1)).toEqual({
-      type: ActionType.SET_MOVIE_CARD_ID,
-      payload: 1
-    });
-  });
-
-  it(`Action creator for changeVisibility returns correct action`, () => {
-    expect(ActionCreator.changeVisibility()).toEqual({
-      type: ActionType.CHANGE_VISIBILITY,
     });
   });
 

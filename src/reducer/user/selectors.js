@@ -8,4 +8,8 @@ const isAuth = createSelector(
     (authUser) => Boolean(authUser)
 );
 
-export {getAuthUser, isAuth};
+const getMyFilmList = (state) => state[NameSpace.USER].myFilmList;
+
+const isMyFilmListLoading = (state) => state[NameSpace.USER].isMyFilmListLoading;
+
+export {getAuthUser, isAuth, getMyFilmList, isMyFilmListLoading};

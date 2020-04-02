@@ -50,9 +50,9 @@ export default class MoviesList extends React.PureComponent {
     const {films, activeItem: activeFilm} = this.props;
 
     return (
-      <React.Fragment>
+      <div className="catalog__movies-list">
         {films.map((film) => <SmallMovieCard film={film} onCardClick={this._handleCardMouseClick} onCardMouseEnter={this._handleCardMouseEnter} onCardMouseLeave={this._handleCardMouseLeave} activeFilm={activeFilm} key={film.id}/>)}
-      </React.Fragment>
+      </div>
     );
   }
 }
