@@ -12,8 +12,6 @@ const initialState = {
   promoFilm: {},
   filterType: ALL_GENRES,
   showingCardsCount: FilmsCount.ON_START,
-  selectedMovieId: -1,
-  isFullVideoPlayerVisible: false,
   isAppLoading: false
 };
 
@@ -22,8 +20,6 @@ const ActionType = {
   CHANGE_GENRE_FILTER: `CHANGE_GENRE_FILTER`,
   INCREMENT_SHOWING_CARDS_COUNT: `INCREMENT_SHOWING_CARDS_COUNT`,
   RESET_SHOWING_CARDS_COUNT: `RESET_SHOWING_CARDS_COUNT`,
-  SET_MOVIE_CARD_ID: `SET_MOVIE_CARD_ID`,
-  CHANGE_VISIBILITY: `CHANGE_VISIBILITY`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   SET_LOADER_STATE: `SET_LOADER_STATE`
 };
@@ -34,8 +30,6 @@ const ActionCreator = {
   changeGenreFilter: (filterType) => ({type: ActionType.CHANGE_GENRE_FILTER, filterType}),
   incrementShowingCardsCount: () => ({type: ActionType.INCREMENT_SHOWING_CARDS_COUNT, payload: FilmsCount.BY_BUTTON}),
   resetShowingCardsCount: () => ({type: ActionType.RESET_SHOWING_CARDS_COUNT, payload: FilmsCount.ON_START}),
-  setMovieCardId: (id) => ({type: ActionType.SET_MOVIE_CARD_ID, payload: id}),
-  changeVisibility: () => ({type: ActionType.CHANGE_VISIBILITY}),
   setLoaderState: (isAppLoading) => ({type: ActionType.SET_LOADER_STATE, payload: isAppLoading}),
 };
 
@@ -48,12 +42,10 @@ const Operation = {
         dispatch(ActionCreator.loadFilms(response));
       })
       .catch((err) => {
-        // console.log(err.response.data.error);
         throw err;
       });
   },
   loadPromoFilm: () => (dispatch, getState, api) => {
-
     return api.get(`/films/promo`)
      .then((response) => response.data)
      .then(Film.parseFilm)
@@ -83,18 +75,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.RESET_SHOWING_CARDS_COUNT:
       return Object.assign({}, state, {showingCardsCount: action.payload});
 
-    case ActionType.SET_MOVIE_CARD_ID:
-      return Object.assign({}, state, {selectedMovieId: action.payload});
-
-    case ActionType.CHANGE_VISIBILITY:
-      return Object.assign({}, state, {isFullVideoPlayerVisible: !state.isFullVideoPlayerVisible});
-
     case ActionType.SET_LOADER_STATE:
       return Object.assign({}, state, {isAppLoading: action.payload});
   }
 
   return state;
 };
-
 
 export {reducer, Operation, ActionType, ActionCreator};

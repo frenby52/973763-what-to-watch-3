@@ -11,7 +11,6 @@ import {Operation as UserOperation, ActionCreator as UserActionCreator} from "./
 
 const onUnauthorized = () => {
   store.dispatch(UserActionCreator.setAuthStatus(false));
-  // console.log(`onUnauthorized`)
 };
 
 const api = createAPI(onUnauthorized);

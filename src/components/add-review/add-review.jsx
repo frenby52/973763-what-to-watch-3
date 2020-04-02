@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 import history from "../../history.js";
 
 const STARS_COUNT = 5;
-const validateRule = {
+const ValidateRule = {
   TEXT: {
     MIN: 50,
     MAX: 400,
@@ -49,7 +49,7 @@ const AddReview = (props) => {
     onIsValidChange(validateStatus);
   };
 
-  const _handlerFormSubmit = (evt) => {
+  const _handleFormSubmit = (evt) => {
     evt.preventDefault();
     _toggleFormDisability();
 
@@ -72,10 +72,10 @@ const AddReview = (props) => {
   const _commentValidate = (filmComment) => {
     const validateErrors = [];
 
-    validateErrors.push(filmComment.text.length < validateRule.TEXT.MIN);
-    validateErrors.push(filmComment.text.length > validateRule.TEXT.MAX);
-    validateErrors.push(filmComment.rating < validateRule.RANKING.MIN);
-    validateErrors.push(filmComment.rating > validateRule.RANKING.MAX);
+    validateErrors.push(filmComment.text.length < ValidateRule.TEXT.MIN);
+    validateErrors.push(filmComment.text.length > ValidateRule.TEXT.MAX);
+    validateErrors.push(filmComment.rating < ValidateRule.RANKING.MIN);
+    validateErrors.push(filmComment.rating > ValidateRule.RANKING.MAX);
 
     return !validateErrors.some((error) => error);
   };
@@ -117,7 +117,7 @@ const AddReview = (props) => {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form" onSubmit={_handlerFormSubmit} onChange={_handleInputChange}>
+        <form action="#" className="add-review__form" onSubmit={_handleFormSubmit} onChange={_handleInputChange}>
           <div className="rating">
             <div className="rating__stars">
               {new Array(STARS_COUNT).fill(``).map((_, index) => (

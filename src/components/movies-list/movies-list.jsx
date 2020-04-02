@@ -4,7 +4,7 @@ import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
 const PREVIEW_DELAY = 1000;
 
-export default class MoviesList extends React.PureComponent {
+class MoviesList extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -13,6 +13,12 @@ export default class MoviesList extends React.PureComponent {
     this._handleCardMouseLeave = this._handleCardMouseLeave.bind(this);
 
     this.timerId = null;
+  }
+
+  componentWillUnmount() {
+    if (this.timerId) {
+      clearTimeout(this.timerId);
+    }
   }
 
   _handleCardMouseClick(id) {
@@ -40,19 +46,13 @@ export default class MoviesList extends React.PureComponent {
     onActiveItemChange(-1);
   }
 
-  componentWillUnmount() {
-    if (this.timerId) {
-      clearTimeout(this.timerId);
-    }
-  }
-
   render() {
     const {films, activeItem: activeFilm} = this.props;
 
     return (
-      <React.Fragment>
+      <div className="catalog__movies-list">
         {films.map((film) => <SmallMovieCard film={film} onCardClick={this._handleCardMouseClick} onCardMouseEnter={this._handleCardMouseEnter} onCardMouseLeave={this._handleCardMouseLeave} activeFilm={activeFilm} key={film.id}/>)}
-      </React.Fragment>
+      </div>
     );
   }
 }
@@ -78,3 +78,5 @@ MoviesList.propTypes = {
   onActiveItemChange: PropTypes.func.isRequired,
   activeItem: PropTypes.number.isRequired,
 };
+
+export default MoviesList;

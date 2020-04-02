@@ -80,4 +80,5 @@ FullVideoPlayer.propTypes = {
   ]).isRequired,
 
 };
+
 export default FullVideoPlayer;

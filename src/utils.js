@@ -6,6 +6,8 @@ const RatingLevel = {
   AWESOME: 10
 };
 
+const SIMILAR_FILMS_COUNT = 4;
+
 const getRatingLevel = (ratingScore) => {
   if (ratingScore >= RatingLevel.BAD && ratingScore < RatingLevel.NORMAL) {
     return `Bad`;
@@ -21,10 +23,19 @@ const getRatingLevel = (ratingScore) => {
   return ``;
 };
 
-const formatTime = (time) => [60, 60, 24].map((n) => {
-  const result = time % n;
-  time = (time - result) / n;
-  return (`0` + result).slice(-2);
-}).reverse().join(`:`);
+const formatTime = (min) => {
+  const hours = (min / 60);
+  const minutes = (hours - Math.floor(hours)) * 60;
 
-export {getRatingLevel, formatTime};
+  return `${Math.floor(hours)}h ${Math.round(minutes)}m`;
+};
+
+const getMovieById = (props, films) => {
+  const selectedMovieId = Number(props.match.params.id);
+
+  return films.find((film) => film.id === selectedMovieId);
+};
+
+const getSimilarFilms = (props, films) => films.filter((film) => film.id !== Number(props.match.params.id) && film.genre === getMovieById(props, films).genre).slice(0, SIMILAR_FILMS_COUNT);
+
+export {getRatingLevel, formatTime, getMovieById, getSimilarFilms};

@@ -121,6 +121,4 @@ describe(`Operation work correctly`, () => {
       });
     });
   });
-
-
 });

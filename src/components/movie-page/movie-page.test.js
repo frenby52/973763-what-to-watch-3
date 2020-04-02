@@ -177,8 +177,6 @@ it(`MoviePage component should render correct`, () => {
       promoFilm: films[0],
       filterType: `All genres`,
       showingCardsCount: 8,
-      selectedMovieId: 1,
-      isFullVideoPlayerVisible: false,
       isAppLoading: false
     },
     [Namespace.USER]: {
@@ -193,7 +191,7 @@ it(`MoviePage component should render correct`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}} isFullVideoPlayerVisible={false} onVisibilityChange={() => {}} isAuthed={false} isLoaded={true} comments={comments}/>
+          <MoviePage film={films[0]} similarFilms={similarFilms} onCardClick={() => {}} activeItem={0} onActiveItemChange={() => {}} isAuthed={false} isLoaded={true} comments={comments} toggleFavorite={() => {}} isFavorite={true}/>
         </Provider>,
         {createNodeMock: () => ({})}
     )

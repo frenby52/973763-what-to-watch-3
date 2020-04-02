@@ -6,6 +6,7 @@ import {isAuth} from "../../reducer/user/selectors.js";
 
 const PrivateRoute = (props) => {
   const {render, path, exact, isAuthed} = props;
+
   return (
     <Route
       path={path}

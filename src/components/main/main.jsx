@@ -6,26 +6,23 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import MoviesList from "../movies-list/movies-list.jsx";
 import GenreList from "../genre-list/genre-list.jsx";
 import ShowMore from "../show-more/show-more.jsx";
-import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 import UserBlock from "../user-block/user-block.jsx";
-import withFullPlayer from "../../hocs/with-full-player/with-full-player.js";
 const MoviesListWrapped = withActiveItem(MoviesList);
-const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
-import {getGenreFilter, getGenresList, getShowingCardsCount, getPromoFilm} from "../../reducer/films/selectors.js";
+import {getGenreFilter, getGenresList, getShowingCardsCount} from "../../reducer/films/selectors.js";
 import {Link} from 'react-router-dom';
+import {isPromoFavorite as isPromoFavoriteSelector} from "../../reducer/films/selectors";
+import {Operation} from "../../reducer/user/user";
+import history from "../../history.js";
 
 const Main = (props) => {
-  const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, isFullVideoPlayerVisible, onVisibilityChange} = props;
+  const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, toggleFavorite, isPromoFavorite} = props;
   const {title, genre, releaseDate, posterImage, backgroundImage} = promoFilm;
 
-  return isFullVideoPlayerVisible ? (
-    <FullVideoPlayerWrapped
-      onExitButtonClick={onVisibilityChange}
-      film={promoFilm}
-      autoPlay={true}
-      muted={false}
-    />
-  ) : (<React.Fragment>
+  const _handleFavoriteButtonClick = () => {
+    toggleFavorite(promoFilm);
+  };
+
+  return (<React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
         <img src={backgroundImage} alt={title}/>
@@ -59,16 +56,22 @@ const Main = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={onVisibilityChange}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${promoFilm.id}`)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
+              <button className="btn btn--list movie-card__button" type="button" onClick={_handleFavoriteButtonClick}>
+                {isPromoFavorite ? (
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                )}
                 <span>My list</span>
               </button>
             </div>
@@ -81,9 +84,7 @@ const Main = (props) => {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <GenreList genres={genres} filterType={filterType} onFilterClick={onFilterClick}/>
-        <div className="catalog__movies-list">
-          <MoviesListWrapped films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
-        </div>
+        <MoviesListWrapped films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
         {showingCardsCount < films.length && <ShowMore onShowMoreClick={onShowMoreClick}/>}
       </section>
 
@@ -105,7 +106,6 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  // promoFilm: PropTypes.object.isRequired,
   promoFilm: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -144,29 +144,31 @@ Main.propTypes = {
   onFilterClick: PropTypes.func.isRequired,
   onShowMoreClick: PropTypes.func.isRequired,
   showingCardsCount: PropTypes.number.isRequired,
-  onVisibilityChange: PropTypes.func.isRequired,
-  isFullVideoPlayerVisible: PropTypes.bool.isRequired,
+  toggleFavorite: PropTypes.func.isRequired,
+  isPromoFavorite: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
-  promoFilm: getPromoFilm(state),
-  filterType: getGenreFilter(state),
-  genres: getGenresList(state),
-  showingCardsCount: getShowingCardsCount(state)
-});
+const mapStateToProps = (state) => {
+  return {
+    filterType: getGenreFilter(state),
+    genres: getGenresList(state),
+    showingCardsCount: getShowingCardsCount(state),
+    isPromoFavorite: isPromoFavoriteSelector(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   onFilterClick(filterType) {
     dispatch(ActionCreator.changeGenreFilter(filterType));
-    // dispatch(ActionCreator.getFilteredMovieCards(filterType));
     dispatch(ActionCreator.resetShowingCardsCount());
   },
   onShowMoreClick() {
     dispatch(ActionCreator.incrementShowingCardsCount());
-  }
+  },
+  toggleFavorite(film) {
+    dispatch(Operation.toggleFavorite(film));
+  },
 });
 
 export {Main};
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
-
-
