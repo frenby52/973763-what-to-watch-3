@@ -4,7 +4,6 @@ import {reducer as user} from "./user/user.js";
 import {reducer as comments} from "./comments/comments.js";
 import NameSpace from "./name-space.js";
 
-
 export default combineReducers({
   [NameSpace.FILMS]: films,
   [NameSpace.USER]: user,

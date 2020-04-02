@@ -103,7 +103,6 @@ const Operation = {
         throw err;
       });
   },
-
   toggleFavorite: (film) => (dispatch, getState, api) => {
     const status = (film.isFavorite) ? 0 : 1;
     return api.post(`/favorite/${film.id}/${status}`)
@@ -122,4 +121,3 @@ const Operation = {
 };
 
 export {reducer, Operation, ActionType, ActionCreator};
-

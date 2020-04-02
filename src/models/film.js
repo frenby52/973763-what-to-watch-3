@@ -21,7 +21,6 @@ export default class Film {
 
   static parseFilm(film) {
     return Object.keys(film).length ? new Film(film) : {};
-    // return new Film(film);
   }
 
   static parseFilms(films) {

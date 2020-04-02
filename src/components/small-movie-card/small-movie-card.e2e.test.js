@@ -49,5 +49,3 @@ describe(`SmallMovieCard group`, () => {
     expect(cardMouseLeaveHandler).toHaveBeenCalledTimes(1);
   });
 });
-
-

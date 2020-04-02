@@ -7,7 +7,6 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-
 const tabClickHandler = jest.fn();
 
 const tabs = shallow(<Tabs onTabClick={tabClickHandler} activeTab={1} />);
@@ -19,4 +18,3 @@ it(`Tabs component - click on tab correct`, () => {
   expect(tabClickHandler).toHaveBeenCalledTimes(1);
   expect(tabClickHandler).toBeCalledWith(0);
 });
-
