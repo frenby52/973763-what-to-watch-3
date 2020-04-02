@@ -53,9 +53,7 @@ Willem Dafoe
       <span
         className="movie-card__details-value"
       >
-        1h 
-        20
-        m
+        0h 20m
       </span>
     </p>
     <p

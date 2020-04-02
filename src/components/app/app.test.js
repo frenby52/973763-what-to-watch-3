@@ -196,7 +196,7 @@ it(`App render correct`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
-          <App films={films} onCardClick={() => {}} promoFilm={promoFilmMock} login={() => {}} isLoading={false}/>
+          <App films={films} onCardClick={() => {}} promoFilm={promoFilmMock} login={() => {}} isLoading={false} isAuthed={false}/>
         </Provider>,
         {createNodeMock: () => ({})}
     )

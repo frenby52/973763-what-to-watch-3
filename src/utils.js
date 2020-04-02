@@ -23,11 +23,12 @@ const getRatingLevel = (ratingScore) => {
   return ``;
 };
 
-const formatTime = (time) => [60, 60, 24].map((n) => {
-  const result = time % n;
-  time = (time - result) / n;
-  return (`0` + result).slice(-2);
-}).reverse().join(`:`);
+const formatTime = (min) => {
+  const hours = (min / 60);
+  const minutes = (hours - Math.floor(hours)) * 60;
+
+  return `${Math.floor(hours)}h ${Math.round(minutes)}m`;
+};
 
 const getMovieById = (props, films) => {
   const selectedMovieId = Number(props.match.params.id);

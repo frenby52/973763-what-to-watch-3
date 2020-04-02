@@ -18,13 +18,14 @@ import PrivateRoute from "../private-route/private-route.jsx";
 import FullVideoPlayer from "../full-video-player/full-video-player.jsx";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import {getMovieById, getSimilarFilms} from "../../utils";
+import {isAuth} from "../../reducer/user/selectors";
 
 const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
 const MoviePageWrapped = withActiveItem(MoviePage);
 const AddReviewWrapped = withIsValid(AddReview);
 
 const App = (props) => {
-  const {films, onCardClick, login, isLoading, promoFilm} = props;
+  const {films, onCardClick, login, isLoading, promoFilm, isAuthed} = props;
 
   return (
     <Router history={history}>
@@ -36,11 +37,11 @@ const App = (props) => {
           render={(routerProps) => isLoading ? <Loader/> : <MoviePageWrapped film={getMovieById(routerProps, films)} similarFilms={getSimilarFilms(routerProps, films)} onCardClick={onCardClick} />}
         />
         <Route exact path="/login">
-          <SignIn onFormSubmit={login} />
+          {isAuthed ? history.push(`/`) : <SignIn onFormSubmit={login} />}
         </Route>
         <Route
           exact
-          path={`/films/:id/player`}
+          path={`/player/:id`}
           render={(routerProps) => isLoading ? <Loader/> : <FullVideoPlayerWrapped onExitButtonClick = {routerProps.history.goBack} film = {getMovieById(routerProps, films) || promoFilm} autoPlay = {true} muted = {false}/>}
         />
         <PrivateRoute
@@ -80,6 +81,7 @@ App.propTypes = {
   onCardClick: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  isAuthed: PropTypes.bool.isRequired,
   films: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
@@ -102,6 +104,7 @@ const mapStateToProps = (state) => ({
   films: getFilteredMovieCards(state),
   promoFilm: getPromoFilm(state),
   isLoading: isAppLoading(state),
+  isAuthed: isAuth(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

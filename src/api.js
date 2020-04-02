@@ -36,7 +36,7 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === Error.BAD_REQUEST) {
       onUnauthorized();
-      // console.log(`BAD_REQUEST`)
+
       throw err;
     }
 
