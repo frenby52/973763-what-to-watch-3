@@ -14,9 +14,9 @@ export const getShowingCardsCount = (state) => state[NameSpace.FILMS].showingCar
 
 export const isFavorite = (state, filmId) => state[NameSpace.FILMS].movieCards.find((item) => item.id === filmId).isFavorite;
 
-export const isPromoFavorite = (state) => state[NameSpace.FILMS].promoFilm.isFavorite;
-
 export const isAppLoading = (state) => state[NameSpace.FILMS].isAppLoading;
+
+export const getFilmById = (state, filmId) => state[NameSpace.FILMS].movieCards.find((item) => item.id === filmId);
 
 export const getGenresList = createSelector(
     getFilms,

@@ -30,15 +30,15 @@ const App = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/">
-          {isLoading ? <Loader/> : <Main films={films} promoFilm={promoFilm} onCardClick={onCardClick} />}
-        </Route>
+        <Route exact path={`/`}
+          render={() => isLoading ? <Loader/> : <Main films={films} promoFilm={promoFilm} onCardClick={onCardClick} />}
+        />
         <Route exact path={`/films/:id`}
           render={(routerProps) => isLoading ? <Loader/> : <MoviePageWrapped film={getMovieById(routerProps, films)} similarFilms={getSimilarFilms(routerProps, films)} onCardClick={onCardClick} />}
         />
-        <Route exact path="/login">
-          {isAuthed ? history.push(`/`) : <SignIn onFormSubmit={login} />}
-        </Route>
+        <Route exact path={`/login`}
+          render={() => isAuthed ? history.push(`/`) : <SignIn onFormSubmit={login} />}
+        />
         <Route
           exact
           path={`/player/:id`}

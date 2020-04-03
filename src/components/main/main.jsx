@@ -10,12 +10,12 @@ import UserBlock from "../user-block/user-block.jsx";
 const MoviesListWrapped = withActiveItem(MoviesList);
 import {getGenreFilter, getGenresList, getShowingCardsCount} from "../../reducer/films/selectors.js";
 import {Link} from 'react-router-dom';
-import {isPromoFavorite as isPromoFavoriteSelector} from "../../reducer/films/selectors";
+import {isFavorite as isFavoriteSelector} from "../../reducer/films/selectors";
 import {Operation} from "../../reducer/user/user";
 import history from "../../history.js";
 
 const Main = (props) => {
-  const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, toggleFavorite, isPromoFavorite} = props;
+  const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, toggleFavorite, isFavorite} = props;
   const {title, genre, releaseDate, posterImage, backgroundImage} = promoFilm;
 
   const _handleFavoriteButtonClick = () => {
@@ -63,7 +63,7 @@ const Main = (props) => {
                 <span>Play</span>
               </button>
               <button className="btn btn--list movie-card__button" type="button" onClick={_handleFavoriteButtonClick}>
-                {isPromoFavorite ? (
+                {isFavorite ? (
                   <svg viewBox="0 0 18 14" width="18" height="14">
                     <use xlinkHref="#in-list"></use>
                   </svg>
@@ -145,15 +145,17 @@ Main.propTypes = {
   onShowMoreClick: PropTypes.func.isRequired,
   showingCardsCount: PropTypes.number.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
-  isPromoFavorite: PropTypes.bool,
+  isFavorite: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
+  const {promoFilm} = props;
+
   return {
     filterType: getGenreFilter(state),
     genres: getGenresList(state),
     showingCardsCount: getShowingCardsCount(state),
-    isPromoFavorite: isPromoFavoriteSelector(state),
+    isFavorite: isFavoriteSelector(state, promoFilm.id),
   };
 };
 
@@ -166,7 +168,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.incrementShowingCardsCount());
   },
   toggleFavorite(film) {
-    dispatch(Operation.toggleFavorite(film));
+    dispatch(Operation.toggleFavorite(film.id));
   },
 });
 

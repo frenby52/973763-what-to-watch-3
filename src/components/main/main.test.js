@@ -175,7 +175,7 @@ jest.mock(`react-router-dom`, () => ({Link: `Link`}));
 
 it(`Main component should render correct`, () => {
   const tree = renderer
-    .create(<Main films={films} promoFilm={promoFilmMock} onCardClick={() => {}} genres={[ALL_GENRES]} filterType={ALL_GENRES} onFilterClick={() => {}} showingCardsCount={8} onShowMoreClick={() => {}} toggleFavorite={() => {}} isPromoFavorite={false}/>, {
+    .create(<Main films={films} promoFilm={promoFilmMock} onCardClick={() => {}} genres={[ALL_GENRES]} filterType={ALL_GENRES} onFilterClick={() => {}} showingCardsCount={8} onShowMoreClick={() => {}} toggleFavorite={() => {}} isFavorite={false}/>, {
       createNodeMock: () => {
         return {};
       }
