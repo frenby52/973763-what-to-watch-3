@@ -31,7 +31,7 @@ export const getFilteredMovieCards = createSelector(
     getGenreFilter,
     (films, genreFilter) => {
       if (genreFilter !== ALL_GENRES) {
-        return films.filter((it) => it.genre === genreFilter);
+        return films.filter((film) => film.genre === genreFilter);
       }
 
       return films;
