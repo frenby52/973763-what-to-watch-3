@@ -1,6 +1,6 @@
 import React, {createRef} from "react";
 import PropTypes from "prop-types";
-import {formatTime} from "../../utils";
+import {formatPlayerTime} from "../../utils";
 
 const withFullPlayer = (Component) => {
   class WithFullPlayer extends React.PureComponent {
@@ -16,7 +16,7 @@ const withFullPlayer = (Component) => {
       };
 
       this.handleVideoPlay = this.handleVideoPlay.bind(this);
-      this.handleFullscreen = this.handleFullscreen.bind(this);
+      this.handleFullscreenButtonClick = this.handleFullscreenButtonClick.bind(this);
       this.getPlaybackProgress = this.getPlaybackProgress.bind(this);
       this.getElapsedTime = this.getElapsedTime.bind(this);
       this.timeUpdateHandler = this.timeUpdateHandler.bind(this);
@@ -35,10 +35,12 @@ const withFullPlayer = (Component) => {
       }
     }
 
-    handleFullscreen() {
-      const video = this._videoRef.current;
+    handleFullscreenButtonClick(player) {
+      if (document.fullscreenElement === player) {
+        document.exitFullscreen();
+      }
 
-      video.requestFullscreen();
+      player.requestFullscreen();
     }
 
     getPlaybackProgress() {
@@ -46,7 +48,7 @@ const withFullPlayer = (Component) => {
     }
 
     getElapsedTime() {
-      return formatTime(this.state.videoDuration - this.state.currentTime);
+      return formatPlayerTime(this.state.videoDuration - this.state.currentTime);
     }
 
     timeUpdateHandler(evt) {
@@ -71,7 +73,7 @@ const withFullPlayer = (Component) => {
         <Component
           {...this.props}
           isPlaying={isPlaying}
-          onFullscreenButtonClick={this.handleFullscreen}
+          onFullscreenButtonClick={this.handleFullscreenButtonClick}
           getPlaybackProgress={this.getPlaybackProgress}
           getElapsedTime={this.getElapsedTime}
           onPlayButtonClick={this.handleVideoPlay}

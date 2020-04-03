@@ -182,7 +182,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   toggleFavorite(film) {
-    dispatch(Operation.toggleFavorite(film));
+    dispatch(Operation.toggleFavorite(film.id));
   },
 });
 

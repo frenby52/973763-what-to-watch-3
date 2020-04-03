@@ -10,7 +10,7 @@ import MyList from "../my-list/my-list.jsx";
 import withIsValid from '../../hocs/with-is-valid/with-is-valid';
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {getFilteredMovieCards, isAppLoading, getPromoFilm} from "../../reducer/films/selectors.js";
-import Loader from "../loader/loader";
+import Loader from "../loader/loader.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as CommentsOperation} from "../../reducer/comments/comments";
 import history from "../../history.js";
@@ -30,15 +30,15 @@ const App = (props) => {
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path="/">
-          {isLoading ? <Loader/> : <Main films={films} promoFilm={promoFilm} onCardClick={onCardClick} />}
-        </Route>
+        <Route exact path={`/`}
+          render={() => isLoading ? <Loader/> : <Main films={films} promoFilm={promoFilm} onCardClick={onCardClick} />}
+        />
         <Route exact path={`/films/:id`}
           render={(routerProps) => isLoading ? <Loader/> : <MoviePageWrapped film={getMovieById(routerProps, films)} similarFilms={getSimilarFilms(routerProps, films)} onCardClick={onCardClick} />}
         />
-        <Route exact path="/login">
-          {isAuthed ? history.push(`/`) : <SignIn onFormSubmit={login} />}
-        </Route>
+        <Route exact path={`/login`}
+          render={() => isAuthed ? history.push(`/`) : <SignIn onFormSubmit={login} />}
+        />
         <Route
           exact
           path={`/player/:id`}

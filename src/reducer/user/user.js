@@ -1,6 +1,7 @@
 import User from '../../models/user';
 import history from "../../history.js";
 import Film from "../../models/film";
+import {getFilmById} from "../../reducer/films/selectors";
 
 const initialState = {
   authUserData: null,
@@ -45,10 +46,7 @@ const reducer = (state = initialState, action) => {
       return Object.assign({}, state, {myFilmList: state.myFilmList.concat(action.payload)});
 
     case ActionType.REMOVE_FILM:
-      const index = state.myFilmList.findIndex((film) => film.id === action.payload.id);
-      state.myFilmList.splice(index, 1);
-
-      return Object.assign({}, state, {myFilmList: state.myFilmList});
+      return Object.assign({}, state, {myFilmList: [...state.myFilmList.filter((film) => film.id !== action.payload.id)]});
   }
 
   return state;
@@ -103,8 +101,10 @@ const Operation = {
         throw err;
       });
   },
-  toggleFavorite: (film) => (dispatch, getState, api) => {
+  toggleFavorite: (filmId) => (dispatch, getState, api) => {
+    const film = getFilmById(getState(), filmId);
     const status = (film.isFavorite) ? 0 : 1;
+
     return api.post(`/favorite/${film.id}/${status}`)
       .then(() => {
         film.isFavorite = !film.isFavorite;

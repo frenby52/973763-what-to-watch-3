@@ -303,13 +303,18 @@ describe(`Operation work correctly`, () => {
   it(`Should make a correct API call POST to /favorite/id/status`, function () {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
+    const mockState = {
+      FILMS: {
+        movieCards: films
+      }
+    };
+    const getState = () => mockState;
     const status = (films[0].isFavorite) ? 0 : 1;
-    const toggleFavorite = Operation.toggleFavorite(films[0]);
+    const toggleFavorite = Operation.toggleFavorite(films[0].id);
 
     apiMock.onPost(`/favorite/${films[0].id}/${status}`).reply(200, films[0]);
 
-    return toggleFavorite(dispatch, () => {
-    }, api).then(() => {
+    return toggleFavorite(dispatch, getState, api).then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.ADD_FILM,
