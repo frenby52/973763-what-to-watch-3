@@ -18,7 +18,7 @@ const ValidateRule = {
   }
 };
 const comment = {
-  rating: -1,
+  rating: 5,
   text: ``
 };
 

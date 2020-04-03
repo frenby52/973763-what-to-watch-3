@@ -10,7 +10,7 @@ import MyList from "../my-list/my-list.jsx";
 import withIsValid from '../../hocs/with-is-valid/with-is-valid';
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {getFilteredMovieCards, isAppLoading, getPromoFilm} from "../../reducer/films/selectors.js";
-import Loader from "../loader/loader";
+import Loader from "../loader/loader.jsx";
 import {Operation as UserOperation} from "../../reducer/user/user";
 import {Operation as CommentsOperation} from "../../reducer/comments/comments";
 import history from "../../history.js";
