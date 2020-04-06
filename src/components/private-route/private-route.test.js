@@ -4,7 +4,7 @@ import {Provider} from "react-redux";
 import {Router} from "react-router-dom";
 import history from "../../history.js";
 import configureStore from "redux-mock-store";
-import PrivateRoute from "./private-route.jsx";
+import PrivateRoute from "./private-route.js";
 import Namespace from "../../reducer/name-space.js";
 
 const films = [

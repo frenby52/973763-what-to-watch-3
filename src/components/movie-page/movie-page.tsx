@@ -1,53 +1,50 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/films/films";
+import Tabs from "../tabs/tabs";
+import Tab from "../tab/tab";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
-import MoviesList from "../movies-list/movies-list.jsx";
-import GenreList from "../genre-list/genre-list.jsx";
-import ShowMore from "../show-more/show-more.jsx";
-import UserBlock from "../user-block/user-block.jsx";
-const MoviesListWrapped = withActiveItem(MoviesList);
-import {getGenreFilter, getGenresList, getShowingCardsCount} from "../../reducer/films/selectors.js";
+import MoviesList from "../movies-list/movies-list";
+import UserBlock from "../user-block/user-block";
 import {Link} from 'react-router-dom';
-import {isFavorite as isFavoriteSelector} from "../../reducer/films/selectors";
+import {isAuth} from "../../reducer/user/selectors";
+import {connect} from "react-redux";
+import {getComments, isCommentsLoaded} from "../../reducer/comments/selectors";
 import {Operation} from "../../reducer/user/user";
-import history from "../../history.js";
+import {isFavorite as isFavoriteSelector} from "../../reducer/films/selectors";
+import history from "../../history";
 
-const Main = (props) => {
-  const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, toggleFavorite, isFavorite} = props;
-  const {title, genre, releaseDate, posterImage, backgroundImage} = promoFilm;
+const MoviesListWrapped = withActiveItem(MoviesList);
+
+const MoviePage = (props) => {
+  const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange, isAuthed, comments, isLoaded, toggleFavorite, isFavorite} = props;
+  const {title, genre, releaseDate, posterImage, backgroundImage, id} = film;
 
   const _handleFavoriteButtonClick = () => {
-    toggleFavorite(promoFilm);
+    toggleFavorite(film);
   };
 
   return (<React.Fragment>
-    <section className="movie-card">
-      <div className="movie-card__bg">
-        <img src={backgroundImage} alt={title}/>
-      </div>
-
-      <h1 className="visually-hidden">WTW</h1>
-
-      <header className="page-header movie-card__head">
-        <div className="logo">
-          <Link to="/" className="logo__link">
-            <span className="logo__letter logo__letter--1">W</span>
-            <span className="logo__letter logo__letter--2">T</span>
-            <span className="logo__letter logo__letter--3">W</span>
-          </Link>
+    <section className="movie-card movie-card--full">
+      <div className="movie-card__hero">
+        <div className="movie-card__bg">
+          <img src={backgroundImage} alt={title}/>
         </div>
 
-        <UserBlock />
-      </header>
+        <h1 className="visually-hidden">WTW</h1>
 
-      <div className="movie-card__wrap">
-        <div className="movie-card__info">
-          <div className="movie-card__poster">
-            <img src={posterImage} alt={`${title} poster`} width="218" height="327"/>
+        <header className="page-header movie-card__head">
+          <div className="logo">
+            <Link to="/" className="logo__link">
+              <span className="logo__letter logo__letter--1">W</span>
+              <span className="logo__letter logo__letter--2">T</span>
+              <span className="logo__letter logo__letter--3">W</span>
+            </Link>
           </div>
 
+          <UserBlock />
+        </header>
+
+        <div className="movie-card__wrap">
           <div className="movie-card__desc">
             <h2 className="movie-card__title">{title}</h2>
             <p className="movie-card__meta">
@@ -56,7 +53,7 @@ const Main = (props) => {
             </p>
 
             <div className="movie-card__buttons">
-              <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${promoFilm.id}`)}>
+              <button className="btn btn--play movie-card__button" type="button" onClick={() => history.push(`/player/${id}`)}>
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
                 </svg>
@@ -74,18 +71,33 @@ const Main = (props) => {
                 )}
                 <span>My list</span>
               </button>
+              {isAuthed && (<Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>)}
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="movie-card__wrap movie-card__translate-top">
+        <div className="movie-card__info">
+          <div className="movie-card__poster movie-card__poster--big">
+            <img src={posterImage} alt={`${title} poster`} width="218" height="327"/>
+          </div>
+
+          <div className="movie-card__desc">
+            <nav className="movie-nav movie-card__nav">
+              <Tabs onTabClick={onActiveItemChange} activeTab={activeTabIndex === -1 ? 0 : activeTabIndex} />
+            </nav>
+
+            <Tab film={film} activeTab={activeTabIndex === -1 ? 0 : activeTabIndex} comments={comments} isCommentsLoaded={isLoaded}/>
           </div>
         </div>
       </div>
     </section>
 
     <div className="page-content">
-      <section className="catalog">
-        <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <GenreList genres={genres} filterType={filterType} onFilterClick={onFilterClick}/>
-        <MoviesListWrapped films={films.slice(0, showingCardsCount)} onCardClick={onCardClick}/>
-        {showingCardsCount < films.length && <ShowMore onShowMoreClick={onShowMoreClick}/>}
+      <section className="catalog catalog--like-this">
+        <h2 className="catalog__title">More like this</h2>
+        <MoviesListWrapped films={similarFilms} onCardClick={onCardClick}/>
       </section>
 
       <footer className="page-footer">
@@ -105,8 +117,8 @@ const Main = (props) => {
   </React.Fragment>);
 };
 
-Main.propTypes = {
-  promoFilm: PropTypes.shape({
+MoviePage.propTypes = {
+  film: PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
@@ -122,7 +134,10 @@ Main.propTypes = {
     previewSrc: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   }).isRequired,
-  films: PropTypes.arrayOf(PropTypes.shape({
+  onCardClick: PropTypes.func.isRequired,
+  onActiveItemChange: PropTypes.func.isRequired,
+  activeItem: PropTypes.number.isRequired,
+  similarFilms: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
@@ -138,39 +153,38 @@ Main.propTypes = {
     previewSrc: PropTypes.string.isRequired,
     runTime: PropTypes.number.isRequired,
   })).isRequired,
-  onCardClick: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filterType: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired,
-  onShowMoreClick: PropTypes.func.isRequired,
-  showingCardsCount: PropTypes.number.isRequired,
+  comments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+    rating: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+    date: PropTypes.object.isRequired,
+  })),
+  isAuthed: PropTypes.bool.isRequired,
+  isLoaded: PropTypes.bool.isRequired,
   toggleFavorite: PropTypes.func.isRequired,
   isFavorite: PropTypes.bool,
 };
 
 const mapStateToProps = (state, props) => {
-  const {promoFilm} = props;
+  const {film} = props;
 
   return {
-    filterType: getGenreFilter(state),
-    genres: getGenresList(state),
-    showingCardsCount: getShowingCardsCount(state),
-    isFavorite: isFavoriteSelector(state, promoFilm.id),
+    isAuthed: isAuth(state),
+    comments: getComments(state),
+    isLoaded: isCommentsLoaded(state),
+    isFavorite: isFavoriteSelector(state, film.id),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onFilterClick(filterType) {
-    dispatch(ActionCreator.changeGenreFilter(filterType));
-    dispatch(ActionCreator.resetShowingCardsCount());
-  },
-  onShowMoreClick() {
-    dispatch(ActionCreator.incrementShowingCardsCount());
-  },
   toggleFavorite(film) {
     dispatch(Operation.toggleFavorite(film.id));
   },
 });
 
-export {Main};
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export {MoviePage};
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

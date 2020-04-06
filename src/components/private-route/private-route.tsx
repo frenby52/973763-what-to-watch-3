@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import {Route, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
-import {isAuth} from "../../reducer/user/selectors.js";
+import {isAuth} from "../../reducer/user/selectors";
 
 const PrivateRoute = (props) => {
   const {render, path, exact, isAuthed} = props;

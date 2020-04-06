@@ -1,9 +1,9 @@
-import React from 'react';
+import * as React from "react";
 import PropTypes from 'prop-types';
-import UserBlock from "../user-block/user-block.jsx";
+import UserBlock from "../user-block/user-block";
 import {connect} from 'react-redux';
-import Loader from "../loader/loader.jsx";
-import MoviesList from "../movies-list/movies-list.jsx";
+import Loader from "../loader/loader";
+import MoviesList from "../movies-list/movies-list";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {Link} from "react-router-dom";
 import {Operation} from "../../reducer/user/user";

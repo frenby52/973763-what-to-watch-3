@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import FullVideoPlayer from "./full-video-player.jsx";
+import FullVideoPlayer from "./full-video-player.js";
 
 const film = {
   id: 0,

@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import SmallMovieCard from "../small-movie-card/small-movie-card";
 
 const PREVIEW_DELAY = 1000;
 

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {App} from "./app.jsx";
+import {App} from "./app.js";
 import configureStore from "redux-mock-store";
 import Namespace from "../../reducer/name-space.js";
 import {Provider} from "react-redux";

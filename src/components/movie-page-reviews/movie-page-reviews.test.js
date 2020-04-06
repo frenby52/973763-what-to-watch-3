@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {MoviePageReviews} from "./movie-page-reviews.jsx";
+import {MoviePageReviews} from "./movie-page-reviews.js";
 
 const film = {
   id: 0,

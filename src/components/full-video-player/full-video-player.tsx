@@ -1,9 +1,9 @@
-import React, {createRef} from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 
 const FullVideoPlayer = (props) => {
   const {onExitButtonClick, film, isPlaying, onFullscreenButtonClick, getPlaybackProgress, getElapsedTime, onPlayButtonClick, children} = props;
-  const playerRef = createRef();
+  const playerRef = React.createRef();
 
   return (
     <div className="player" ref={playerRef}>

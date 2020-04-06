@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import ShowMore from "./show-more.jsx";
+import ShowMore from "./show-more.js";
 
 it(`ShowMore component should render correct`, () => {
   const tree = renderer

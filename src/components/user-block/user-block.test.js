@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {UserBlock} from "./user-block.jsx";
+import {UserBlock} from "./user-block.js";
 
 const authUserData = {
   id: 1,

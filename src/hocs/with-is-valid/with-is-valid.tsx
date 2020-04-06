@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
+import * as React from "react";
 
 const withIsValid = (Component) => {
-  class WithIsValid extends PureComponent {
+  class WithIsValid extends React.PureComponent {
     constructor(props) {
       super(props);
 

@@ -1,5 +1,5 @@
 import {createSelector} from "reselect";
-import NameSpace from "../name-space.js";
+import NameSpace from "../name-space";
 
 const getAuthUser = (state) => state[NameSpace.USER].authUserData;
 

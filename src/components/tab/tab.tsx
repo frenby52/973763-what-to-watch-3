@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
-import MoviePageOverview from '../movie-page-overview/movie-page-overview.jsx';
-import MoviePageDetails from '../movie-page-details/movie-page-details.jsx';
-import MoviePageReviews from '../movie-page-reviews/movie-page-reviews.jsx';
+import MoviePageOverview from '../movie-page-overview/movie-page-overview';
+import MoviePageDetails from '../movie-page-details/movie-page-details';
+import MoviePageReviews from '../movie-page-reviews/movie-page-reviews';
 
 const Tab = (props) => {
   const {film, activeTab, comments, isCommentsLoaded} = props;
