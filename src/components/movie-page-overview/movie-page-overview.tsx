@@ -1,8 +1,12 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {getRatingLevel} from "../../utils";
+import {Film} from "../../types";
 
-const MoviePageOverview = (props) => {
+type MoviePageOverviewProps = {
+  film: Film;
+};
+
+const MoviePageOverview: React.FunctionComponent<MoviePageOverviewProps> = (props: MoviePageOverviewProps) => {
   const {film} = props;
   const {ratingScore, ratingCount, description, director, starring} = film;
 
@@ -23,25 +27,6 @@ const MoviePageOverview = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-MoviePageOverview.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export default MoviePageOverview;

@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 const UserData = {
@@ -7,7 +6,11 @@ const UserData = {
   PASSWORD: `user-password`
 };
 
-const SignIn = (props) => {
+type SignInProps = {
+  onFormSubmit: ({email, password}: {email: string; password: string}) => void;
+};
+
+const SignIn: React.FunctionComponent<SignInProps> = (props: SignInProps) => {
   const {onFormSubmit} = props;
 
   const _handleFormSubmit = (evt) => {
@@ -15,8 +18,8 @@ const SignIn = (props) => {
     const data = new FormData(evt.target);
 
     onFormSubmit({
-      email: data.get(UserData.EMAIL),
-      password: data.get(UserData.PASSWORD),
+      email: data.get(UserData.EMAIL) as string,
+      password: data.get(UserData.PASSWORD) as string,
     });
   };
 
@@ -67,10 +70,6 @@ const SignIn = (props) => {
       </footer>
     </div>
   );
-};
-
-SignIn.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
 };
 
 export default SignIn;

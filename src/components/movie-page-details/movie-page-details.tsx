@@ -1,8 +1,12 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {formatTime} from "../../utils";
+import {Film} from "../../types";
 
-const MoviePageDetails = (props) => {
+type MoviePageDetailsProps = {
+  film: Film;
+};
+
+const MoviePageDetails: React.FunctionComponent<MoviePageDetailsProps> = (props: MoviePageDetailsProps) => {
   const {film} = props;
   const {genre, releaseDate, director, starring, runTime} = film;
 
@@ -39,25 +43,6 @@ const MoviePageDetails = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-MoviePageDetails.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
 };
 
 export default MoviePageDetails;

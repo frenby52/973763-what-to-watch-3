@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {Router, Route, Switch} from "react-router-dom";
 import Main from "../main/main";
@@ -19,12 +18,22 @@ import FullVideoPlayer from "../full-video-player/full-video-player";
 import withFullPlayer from "../../hocs/with-full-player/with-full-player";
 import {getMovieById, getSimilarFilms} from "../../utils";
 import {isAuth} from "../../reducer/user/selectors";
+import {Film} from "../../types";
 
 const FullVideoPlayerWrapped = withFullPlayer(FullVideoPlayer);
 const MoviePageWrapped = withActiveItem(MoviePage);
 const AddReviewWrapped = withIsValid(AddReview);
 
-const App = (props) => {
+type AppProps = {
+  login: ({email, password}: {email: string; password: string}) => void;
+  isAuthed: boolean;
+  isLoading: boolean;
+  films: Film[];
+  promoFilm: Film;
+  onCardClick: (id: number | string) => void;
+};
+
+const App: React.FunctionComponent<AppProps> = (props: AppProps) => {
   const {films, onCardClick, login, isLoading, promoFilm, isAuthed} = props;
 
   return (
@@ -59,45 +68,6 @@ const App = (props) => {
       </Switch>
     </Router>
   );
-};
-
-App.propTypes = {
-  promoFilm: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    previewImage: PropTypes.string,
-    genre: PropTypes.string,
-    releaseDate: PropTypes.number,
-    posterImage: PropTypes.string,
-    backgroundImage: PropTypes.string,
-    ratingScore: PropTypes.number,
-    ratingCount: PropTypes.number,
-    description: PropTypes.string,
-    director: PropTypes.string,
-    starring: PropTypes.arrayOf(PropTypes.string),
-    previewSrc: PropTypes.string,
-    runTime: PropTypes.number,
-  }).isRequired,
-  onCardClick: PropTypes.func.isRequired,
-  login: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  isAuthed: PropTypes.bool.isRequired,
-  films: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  })).isRequired
 };
 
 const mapStateToProps = (state) => ({

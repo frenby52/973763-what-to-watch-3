@@ -1,10 +1,10 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Operation} from "../../reducer/comments/comments";
 import UserBlock from "../user-block/user-block";
 import {Link} from "react-router-dom";
 import history from "../../history";
+import {Film} from "../../types";
 
 const STARS_COUNT = 5;
 const ValidateRule = {
@@ -22,11 +22,26 @@ const comment = {
   text: ``
 };
 
-const AddReview = (props) => {
+type AddReviewProps = {
+  film: Film;
+  onSubmit: (
+    {
+      filmId,
+      rating,
+      comment
+    }: { filmId: number | string; rating: number; comment: string },
+    onSuccess: () => void,
+    onError: () => void
+  ) => void;
+  isValid: boolean;
+  onIsValidChange: (validateStatus: boolean) => void;
+};
+
+const AddReview: React.FunctionComponent<AddReviewProps> = (props: AddReviewProps) => {
   const {film, isValid, onIsValidChange, onSubmit} = props;
 
-  const commentRef = React.createRef();
-  const sendCommentButtonRef = React.createRef();
+  const commentRef: React.RefObject<HTMLTextAreaElement> = React.createRef();
+  const sendCommentButtonRef: React.RefObject<HTMLButtonElement> = React.createRef();
 
   const _toggleFormDisability = () => {
     commentRef.current.disabled = !commentRef.current.disabled;
@@ -140,28 +155,6 @@ const AddReview = (props) => {
 
     </section>
   );
-};
-
-AddReview.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
-  onIsValidChange: PropTypes.func,
-  isValid: PropTypes.bool,
-  onSubmit: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({

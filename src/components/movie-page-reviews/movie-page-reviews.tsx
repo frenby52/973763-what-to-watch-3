@@ -1,10 +1,17 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {connect} from 'react-redux';
-import moment from 'moment';
+import moment = require('moment');
 import {Operation as CommentsOperation} from "../../reducer/comments/comments";
+import {Film, Comment} from "../../types";
 
-class MoviePageReviews extends React.PureComponent {
+type MoviePageReviewsProps = {
+  film: Film;
+  comments: Comment[];
+  loadComments: (id: number | string) => void;
+  isCommentsLoaded: boolean;
+};
+
+class MoviePageReviews extends React.PureComponent<MoviePageReviewsProps, {}> {
   componentDidMount() {
     const {film, loadComments, isCommentsLoaded} = this.props;
     if (!isCommentsLoaded) {
@@ -43,37 +50,6 @@ class MoviePageReviews extends React.PureComponent {
     );
   }
 }
-
-MoviePageReviews.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
-  loadComments: PropTypes.func.isRequired,
-  isCommentsLoaded: PropTypes.bool.isRequired,
-  comments: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-    date: PropTypes.oneOfType([PropTypes.object, PropTypes.string]).isRequired,
-  })),
-};
 
 const mapDispatchToProps = (dispatch) => ({
   loadComments(id) {

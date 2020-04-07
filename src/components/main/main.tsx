@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/films/films";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
@@ -13,8 +12,22 @@ import {Link} from 'react-router-dom';
 import {isFavorite as isFavoriteSelector} from "../../reducer/films/selectors";
 import {Operation} from "../../reducer/user/user";
 import history from "../../history";
+import {Film} from "../../types";
 
-const Main = (props) => {
+type MainProps = {
+  promoFilm: Film;
+  films: Film[];
+  genres: string[];
+  onCardClick: () => void;
+  filterType: string;
+  onFilterClick: (filterType: string) => void;
+  onShowMoreClick: () => void;
+  showingCardsCount: number;
+  toggleFavorite: (film: Film) => void;
+  isFavorite: boolean;
+};
+
+const Main: React.FunctionComponent<MainProps> = (props: MainProps) => {
   const {promoFilm, films, genres, onCardClick, filterType, onFilterClick, onShowMoreClick, showingCardsCount, toggleFavorite, isFavorite} = props;
   const {title, genre, releaseDate, posterImage, backgroundImage} = promoFilm;
 
@@ -103,49 +116,6 @@ const Main = (props) => {
       </footer>
     </div>
   </React.Fragment>);
-};
-
-Main.propTypes = {
-  promoFilm: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
-  films: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  })).isRequired,
-  onCardClick: PropTypes.func.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  filterType: PropTypes.string.isRequired,
-  onFilterClick: PropTypes.func.isRequired,
-  onShowMoreClick: PropTypes.func.isRequired,
-  showingCardsCount: PropTypes.number.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  isFavorite: PropTypes.bool,
 };
 
 const mapStateToProps = (state, props) => {

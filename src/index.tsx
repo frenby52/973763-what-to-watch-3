@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import App from "./components/app/app.js";
+import App from "./components/app/app";
 import {createStore, applyMiddleware, compose} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
@@ -8,13 +8,14 @@ import {createAPI} from "./api";
 import reducer from "./reducer/reducer";
 import {Operation as FilmsOperation, ActionCreator} from "./reducer/films/films";
 import {Operation as UserOperation, ActionCreator as UserActionCreator} from "./reducer/user/user";
+import {composeWithDevTools} from "redux-devtools-extension";
 
 const onUnauthorized = () => {
   store.dispatch(UserActionCreator.setAuthStatus(false));
 };
 
 const api = createAPI(onUnauthorized);
-const store = createStore(reducer, compose(applyMiddleware(thunk.withExtraArgument(api)), window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))));
 
 const init = () => {
   store.dispatch(ActionCreator.setLoaderState(true));

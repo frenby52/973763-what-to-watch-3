@@ -1,7 +1,20 @@
 import * as React from "react";
+import {Subtract} from "utility-types";
+
+interface State {
+  isValid: boolean;
+}
+
+interface InjectingProps {
+  isValid: boolean;
+  onIsValidChange: () => void;
+}
 
 const withIsValid = (Component) => {
-  class WithIsValid extends React.PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithIsValid extends React.PureComponent<T, State> {
     constructor(props) {
       super(props);
 
@@ -27,8 +40,6 @@ const withIsValid = (Component) => {
     }
 
   }
-
-  WithIsValid.propTypes = {};
 
   return WithIsValid;
 };

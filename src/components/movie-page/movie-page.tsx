@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import Tabs from "../tabs/tabs";
 import Tab from "../tab/tab";
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
@@ -12,10 +11,24 @@ import {getComments, isCommentsLoaded} from "../../reducer/comments/selectors";
 import {Operation} from "../../reducer/user/user";
 import {isFavorite as isFavoriteSelector} from "../../reducer/films/selectors";
 import history from "../../history";
+import {Film, Comment} from "../../types";
 
 const MoviesListWrapped = withActiveItem(MoviesList);
 
-const MoviePage = (props) => {
+type MoviePageProps = {
+  film: Film;
+  similarFilms: Film[];
+  onCardClick: () => void;
+  onActiveItemChange: () => void;
+  activeItem: number;
+  toggleFavorite: (film: Film) => void;
+  isFavorite: boolean;
+  isAuthed: boolean;
+  isLoaded: boolean;
+  comments: Comment;
+};
+
+const MoviePage: React.FunctionComponent<MoviePageProps> = (props: MoviePageProps) => {
   const {film, similarFilms, onCardClick, activeItem: activeTabIndex, onActiveItemChange, isAuthed, comments, isLoaded, toggleFavorite, isFavorite} = props;
   const {title, genre, releaseDate, posterImage, backgroundImage, id} = film;
 
@@ -115,58 +128,6 @@ const MoviePage = (props) => {
       </footer>
     </div>
   </React.Fragment>);
-};
-
-MoviePage.propTypes = {
-  film: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  }).isRequired,
-  onCardClick: PropTypes.func.isRequired,
-  onActiveItemChange: PropTypes.func.isRequired,
-  activeItem: PropTypes.number.isRequired,
-  similarFilms: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  })).isRequired,
-  comments: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    }),
-    rating: PropTypes.number.isRequired,
-    text: PropTypes.string.isRequired,
-    date: PropTypes.object.isRequired,
-  })),
-  isAuthed: PropTypes.bool.isRequired,
-  isLoaded: PropTypes.bool.isRequired,
-  toggleFavorite: PropTypes.func.isRequired,
-  isFavorite: PropTypes.bool,
 };
 
 const mapStateToProps = (state, props) => {

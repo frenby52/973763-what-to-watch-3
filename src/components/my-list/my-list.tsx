@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from 'prop-types';
 import UserBlock from "../user-block/user-block";
 import {connect} from 'react-redux';
 import Loader from "../loader/loader";
@@ -8,10 +7,18 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 import {Link} from "react-router-dom";
 import {Operation} from "../../reducer/user/user";
 import {getMyFilmList, isMyFilmListLoading} from "../../reducer/user/selectors";
+import {Film} from "../../types";
 
 const MoviesListWrapped = withActiveItem(MoviesList);
 
-class MyList extends React.PureComponent {
+type MyListProps = {
+  films: Film[];
+  isLoading: boolean;
+  onCardClick: () => void;
+  loadFavoriteFilms: () => void;
+};
+
+class MyList extends React.PureComponent<MyListProps, {}> {
   componentDidMount() {
     const {loadFavoriteFilms} = this.props;
     loadFavoriteFilms();
@@ -58,28 +65,6 @@ class MyList extends React.PureComponent {
     );
   }
 }
-
-MyList.propTypes = {
-  loadFavoriteFilms: PropTypes.func,
-  onCardClick: PropTypes.func.isRequired,
-  films: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    posterImage: PropTypes.string.isRequired,
-    backgroundImage: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-    previewSrc: PropTypes.string.isRequired,
-    runTime: PropTypes.number.isRequired,
-  })).isRequired,
-  isLoading: PropTypes.bool,
-};
 
 const mapStateToProps = (state) => ({
   isLoading: isMyFilmListLoading(state),

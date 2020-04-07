@@ -1,9 +1,32 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {formatPlayerTime} from "../../utils";
+import {Subtract} from "utility-types";
+import {Film} from "../../types";
+
+interface State {
+  isPlaying: boolean;
+  videoDuration: number;
+  currentTime: number;
+}
+
+interface InjectingProps {
+  isPlaying: boolean;
+  onFullscreenButtonClick: () => void;
+  getPlaybackProgress: () => void;
+  getElapsedTime: () => void;
+  onPlayButtonClick: () => void;
+  muted: boolean;
+  autoPlay: boolean;
+  film: Film;
+}
 
 const withFullPlayer = (Component) => {
-  class WithFullPlayer extends React.PureComponent {
+  type P = React.ComponentProps<typeof Component>;
+  type T = Subtract<P, InjectingProps>;
+
+  class WithFullPlayer extends React.PureComponent<T, State> {
+    private _videoRef: React.RefObject<HTMLVideoElement>;
+
     constructor(props) {
       super(props);
 
@@ -93,28 +116,6 @@ const withFullPlayer = (Component) => {
       );
     }
   }
-
-  WithFullPlayer.propTypes = {
-    autoPlay: PropTypes.bool.isRequired,
-    muted: PropTypes.bool.isRequired,
-    film: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      previewImage: PropTypes.string.isRequired,
-      genre: PropTypes.string.isRequired,
-      releaseDate: PropTypes.number.isRequired,
-      posterImage: PropTypes.string.isRequired,
-      backgroundImage: PropTypes.string.isRequired,
-      ratingScore: PropTypes.number.isRequired,
-      ratingCount: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-      director: PropTypes.string.isRequired,
-      videoLink: PropTypes.string.isRequired,
-      starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-      previewSrc: PropTypes.string.isRequired,
-      runTime: PropTypes.number.isRequired,
-    }).isRequired,
-  };
 
   return WithFullPlayer;
 };
