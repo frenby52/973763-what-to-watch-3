@@ -1,13 +1,15 @@
-import React from "react";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as React from "react";
+import {configure, shallow} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
 import SmallMovieCard from "./small-movie-card";
+import {Film} from "../../types";
+import {noop} from "../../utils";
 
-Enzyme.configure({
+configure({
   adapter: new Adapter(),
 });
 
-const film = {
+const film: Film = {
   id: 0,
   title: `The Grand Budapest Hotel`,
   previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -21,7 +23,14 @@ const film = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  runTime: 20,
+  runTime: `20`,
+  backgroundColor: `black`,
+  isFavorite: false,
+  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+};
+
+const mockEvent = {
+  preventDefault: noop,
 };
 
 describe(`SmallMovieCard group`, () => {
@@ -33,7 +42,7 @@ describe(`SmallMovieCard group`, () => {
   const card = wrapper.find(`article`);
 
   it(`SmallMovieCard click on card/title is correct`, () => {
-    card.simulate(`click`, {preventDefault() {}});
+    card.simulate(`click`, mockEvent);
     expect(cardClickHandler).toHaveBeenCalledTimes(1);
     expect(cardClickHandler.mock.calls[0][0]).toEqual(film.id);
   });

@@ -1,6 +1,6 @@
 import * as React from "react";
 import {connect} from 'react-redux';
-import moment = require('moment');
+import moment = require('moment'); // eslint-disable-line
 import {Operation as CommentsOperation} from "../../reducer/comments/comments";
 import {Film, Comment} from "../../types";
 

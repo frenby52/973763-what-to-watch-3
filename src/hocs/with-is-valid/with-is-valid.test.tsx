@@ -1,6 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import withIsValid from "./with-is-valid.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import withIsValid from "./with-is-valid";
 
 const MockComponent = () => <div />;
 

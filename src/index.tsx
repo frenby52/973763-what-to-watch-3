@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import App from "./components/app/app";
-import {createStore, applyMiddleware, compose} from "redux";
+import {createStore, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import {createAPI} from "./api";

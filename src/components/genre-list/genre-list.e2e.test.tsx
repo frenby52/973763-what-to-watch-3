@@ -1,11 +1,16 @@
-import React from "react";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as React from "react";
+import {configure, shallow} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
 import GenreList from "./genre-list";
+import {noop} from "../../utils";
 
-Enzyme.configure({
+configure({
   adapter: new Adapter(),
 });
+
+const mockEvent = {
+  preventDefault: noop,
+};
 
 const filterClickHandler = jest.fn();
 
@@ -14,7 +19,7 @@ const genresList = shallow(<GenreList genres={[`All genres`, `Comedy`]} filterTy
 const genresLink = genresList.find(`.catalog__genres-link`).first();
 
 it(`GenreList component - click on genre link is correct`, () => {
-  genresLink.simulate(`click`, {preventDefault() {}});
+  genresLink.simulate(`click`, mockEvent);
   expect(filterClickHandler).toHaveBeenCalledTimes(1);
   expect(filterClickHandler).toBeCalledWith(`All genres`);
 });

@@ -25,12 +25,12 @@ const withFullPlayer = (Component) => {
   type T = Subtract<P, InjectingProps>;
 
   class WithFullPlayer extends React.PureComponent<T, State> {
-    private _videoRef: React.RefObject<HTMLVideoElement>;
+    private videoRef: React.RefObject<HTMLVideoElement>;
 
     constructor(props) {
       super(props);
 
-      this._videoRef = React.createRef();
+      this.videoRef = React.createRef();
 
       this.state = {
         isPlaying: false,
@@ -47,7 +47,7 @@ const withFullPlayer = (Component) => {
     }
 
     handleVideoPlay() {
-      const video = this._videoRef.current;
+      const video = this.videoRef.current;
 
       if (video.paused) {
         video.play();
@@ -102,7 +102,7 @@ const withFullPlayer = (Component) => {
           onPlayButtonClick={this.handleVideoPlay}
         >
           <video
-            ref={this._videoRef}
+            ref={this.videoRef}
             className="player__video"
             onClick={this.handleVideoPlay}
             muted={muted}

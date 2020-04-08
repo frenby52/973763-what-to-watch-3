@@ -8,7 +8,7 @@ type TabProps = {
   film: Film;
   activeTab: number;
   isCommentsLoaded: boolean;
-  comments: Comment;
+  comments: Comment[];
 };
 
 const Tab: React.FunctionComponent<TabProps> = (props: TabProps) =>{

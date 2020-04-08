@@ -10,7 +10,7 @@ type UserBlockProps = {
     id: number;
     email: string;
     name: string;
-    avatarUrl: object;
+    avatarUrl: string;
   };
   isAuthed: boolean;
 };

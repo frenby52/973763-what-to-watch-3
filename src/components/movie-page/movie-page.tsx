@@ -25,7 +25,7 @@ type MoviePageProps = {
   isFavorite: boolean;
   isAuthed: boolean;
   isLoaded: boolean;
-  comments: Comment;
+  comments: Comment[];
 };
 
 const MoviePage: React.FunctionComponent<MoviePageProps> = (props: MoviePageProps) => {

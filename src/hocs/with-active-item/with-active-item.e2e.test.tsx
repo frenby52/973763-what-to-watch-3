@@ -1,9 +1,9 @@
-import React from 'react';
-import withActiveItem from "./with-active-item.js";
-import Enzyme, {shallow} from "enzyme";
-import Adapter from "enzyme-adapter-react-16";
+import * as React from "react";
+import withActiveItem from "./with-active-item";
+import {configure, shallow} from "enzyme";
+import * as Adapter from "enzyme-adapter-react-16";
 
-Enzyme.configure({
+configure({
   adapter: new Adapter(),
 });
 

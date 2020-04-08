@@ -46,7 +46,17 @@ Array [
           </span>
         </a>
       </div>
-      <user-block />
+      <div
+        className="user-block"
+      >
+        <a
+          className="user-block__link"
+          href="/login"
+          onClick={[Function]}
+        >
+          Sign in
+        </a>
+      </div>
     </header>
     <div
       className="movie-card__wrap"
@@ -163,51 +173,7 @@ Array [
             href="#"
             onClick={[Function]}
           >
-            Comedy
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Crime
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
             Drama
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Horror
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item "
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-            onClick={[Function]}
-          >
-            Sci-Fi
           </a>
         </li>
       </ul>
@@ -244,244 +210,6 @@ Array [
                 className="small-movie-card__link"
               >
                 The Grand Budapest Hotel
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/1"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Bohemian Rhapsody
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/2"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Macbeth
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/3"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Aviator
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/4"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                We need to talk about Kevin
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/5"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                What We Do in the Shadows
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/6"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Revenant
-              </span>
-            </h3>
-          </a>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <a
-            href="/films/7"
-            onClick={[Function]}
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Johnny English
               </span>
             </h3>
           </a>

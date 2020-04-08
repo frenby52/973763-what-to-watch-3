@@ -1,8 +1,9 @@
 import MockAdapter from "axios-mock-adapter";
 import {createAPI} from "../../api.js";
-import {reducer, ActionCreator, ActionType, Operation} from "./user.js";
+import {reducer, ActionCreator, ActionType, Operation} from "./user";
+import {noop} from "../../utils";
 
-const api = createAPI(() => {});
+const api = createAPI(noop);
 
 const authDataMock = {
   id: 1,
@@ -258,7 +259,7 @@ describe(`Operation work correctly`, () => {
       'avatar_url': `img/1.png`
     });
 
-    return checkAuth(dispatch, () => {}, api).then(() => {
+    return checkAuth(dispatch, noop, api).then(() => {
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1,
           {
@@ -280,7 +281,7 @@ describe(`Operation work correctly`, () => {
 
     apiMock.onGet(`/favorite`).reply(200, []);
 
-    return favoriteMoviesListLoader(dispatch, () => {}, api).then(() => {
+    return favoriteMoviesListLoader(dispatch, noop, api).then(() => {
       expect(dispatch).toHaveBeenCalledTimes(3);
       expect(dispatch).toHaveBeenNthCalledWith(1,
           {

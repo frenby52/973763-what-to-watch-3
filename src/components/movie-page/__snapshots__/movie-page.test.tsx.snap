@@ -48,7 +48,16 @@ Array [
             </span>
           </Link>
         </div>
-        <user-block />
+        <div
+          className="user-block"
+        >
+          <Link
+            className="user-block__link"
+            to="/login"
+          >
+            Sign in
+          </Link>
+        </div>
       </header>
       <div
         className="movie-card__wrap"
@@ -305,73 +314,7 @@ Array [
               <span
                 className="small-movie-card__link"
               >
-                Bohemian Rhapsody
-              </span>
-            </h3>
-          </Link>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <Link
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-            to="/films/2"
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Macbeth
-              </span>
-            </h3>
-          </Link>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-          onClick={[Function]}
-          onMouseEnter={[Function]}
-          onMouseLeave={[Function]}
-        >
-          <Link
-            style={
-              Object {
-                "color": "unset",
-              }
-            }
-            to="/films/3"
-          >
-            <div
-              className="small-movie-card__image"
-            >
-              <video
-                height="175"
-                width="280"
-              />
-            </div>
-            <h3
-              className="small-movie-card__title"
-            >
-              <span
-                className="small-movie-card__link"
-              >
-                Aviator
+                The Grand Budapest Hotel2
               </span>
             </h3>
           </Link>

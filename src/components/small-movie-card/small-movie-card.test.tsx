@@ -1,8 +1,10 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import SmallMovieCard from "./small-movie-card.js";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import SmallMovieCard from "./small-movie-card";
+import {noop} from "../../utils";
+import {Film} from "../../types";
 
-const film = {
+const film: Film = {
   id: 0,
   title: `The Grand Budapest Hotel`,
   previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -16,14 +18,17 @@ const film = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  runTime: 20,
+  runTime: `20`,
+  backgroundColor: `black`,
+  isFavorite: false,
+  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
 };
 
 jest.mock(`react-router-dom`, () => ({Link: `Link`}));
 
 it(`SmallMovieCard component should render correct`, () => {
   const tree = renderer
-    .create(<SmallMovieCard film={film} onCardClick={() => {}} onCardMouseEnter={() => {}} onCardMouseLeave={() => {}} activeFilm={0} />, {
+    .create(<SmallMovieCard film={film} onCardClick={noop} onCardMouseEnter={noop} onCardMouseLeave={noop} activeFilm={0} />, {
       createNodeMock: () => {
         return {};
       }

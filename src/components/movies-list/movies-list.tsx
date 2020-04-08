@@ -12,7 +12,7 @@ type MoviesListProps = {
 };
 
 class MoviesList extends React.PureComponent<MoviesListProps, {}> {
-  private timerId: number | any;
+  private timerId: number;
 
   constructor(props) {
     super(props);
@@ -42,7 +42,7 @@ class MoviesList extends React.PureComponent<MoviesListProps, {}> {
   _handleCardMouseEnter(id) {
     const {onActiveItemChange} = this.props;
 
-    this.timerId = setTimeout(() => {
+    this.timerId = window.setTimeout(() => {
       onActiveItemChange(id);
     }, PREVIEW_DELAY);
   }

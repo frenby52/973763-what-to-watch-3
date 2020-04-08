@@ -1,13 +1,18 @@
-import React from 'react';
-import Enzyme, {mount} from 'enzyme';
-import SignIn from "./sign-in.js";
-import Adapter from "enzyme-adapter-react-16/build";
+import * as React from "react";
+import {configure, mount} from 'enzyme';
+import SignIn from "./sign-in";
+import * as Adapter from "enzyme-adapter-react-16";
+import {noop} from "../../utils";
 
 jest.mock(`react-router-dom`, () => ({Link: `a`}));
 
-Enzyme.configure({
+configure({
   adapter: new Adapter(),
 });
+
+const mockEvent = {
+  preventDefault: noop,
+};
 
 describe(`SingIn component tests group`, () => {
   const handlerFormSubmit = jest.fn();
@@ -15,9 +20,7 @@ describe(`SingIn component tests group`, () => {
   const wrapper = mount(<SignIn onFormSubmit={handlerFormSubmit}/>);
 
   const form = wrapper.find(`.sign-in__form`);
-  form.simulate(`submit`, {
-    preventDefault: () => {},
-  });
+  form.simulate(`submit`, mockEvent);
 
   it(`onFormSubmit callback is called`, () => {
     expect(handlerFormSubmit).toBeCalledTimes(1);

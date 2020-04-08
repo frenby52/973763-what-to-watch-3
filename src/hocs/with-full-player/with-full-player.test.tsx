@@ -1,9 +1,9 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import PropTypes from "prop-types";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
 import withFullPlayer from "./with-full-player";
+import {Film} from "../../types";
 
-const promoFilm = {
+const promoFilm: Film = {
   id: 0,
   title: `The Grand Budapest Hotel`,
   previewImage: `fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -17,29 +17,17 @@ const promoFilm = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`],
   previewSrc: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-  runTime: 20,
-  comments: [
-    {
-      id: 0,
-      text: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`,
-      author: `Kate Muir`,
-      date: `December 24, 2016`,
-      rating: `8,9`
-    },
-    {
-      id: 1,
-      text: `Andersons films are too precious for some, but for those of us willing to
-                lose ourselves in them, theyre a delight. The Grand Budapest Hotel is no different, except that he
-                has added a hint of gravitas to the mix, improving the recipe.`,
-      author: `Bill Goodykoontz`,
-      date: `November 18, 2015`,
-      rating: `8,0`
-    }
-  ],
+  runTime: `20`,
+  backgroundColor: `black`,
+  isFavorite: false,
+  videoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
 };
 
-const MockComponent = (props) => {
+interface MockComponentProps {
+  children: React.ReactNode | React.ReactNode[];
+}
+
+const MockComponent = (props: MockComponentProps) => {
   const {children} = props;
 
   return (
@@ -47,13 +35,6 @@ const MockComponent = (props) => {
       {children}
     </div>
   );
-};
-
-MockComponent.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]).isRequired,
 };
 
 const MockComponentWrapped = withFullPlayer(MockComponent);
