@@ -1,5 +1,5 @@
 import {createSelector} from "reselect";
-import NameSpace from "../name-space.js";
+import NameSpace from "../name-space";
 
 const ALL_GENRES = `All genres`;
 const GENRES_MAX_COUNT = 9;

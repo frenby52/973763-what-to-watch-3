@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MoviesList component should render correct 1`] = `
+<div
+  className="catalog__movies-list"
+>
+  <article
+    className="small-movie-card catalog__movies-card"
+    onClick={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+  >
+    <Link
+      style={
+        Object {
+          "color": "unset",
+        }
+      }
+      to="/films/0"
+    >
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          height="175"
+          width="280"
+        />
+      </div>
+      <h3
+        className="small-movie-card__title"
+      >
+        <span
+          className="small-movie-card__link"
+        >
+          The Grand Budapest Hotel
+        </span>
+      </h3>
+    </Link>
+  </article>
+</div>
+`;

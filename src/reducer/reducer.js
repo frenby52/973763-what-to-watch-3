@@ -1,8 +1,8 @@
 import {combineReducers} from "redux";
-import {reducer as films} from "./films/films.js";
-import {reducer as user} from "./user/user.js";
-import {reducer as comments} from "./comments/comments.js";
-import NameSpace from "./name-space.js";
+import {reducer as films} from "./films/films";
+import {reducer as user} from "./user/user";
+import {reducer as comments} from "./comments/comments";
+import NameSpace from "./name-space";
 
 export default combineReducers({
   [NameSpace.FILMS]: films,

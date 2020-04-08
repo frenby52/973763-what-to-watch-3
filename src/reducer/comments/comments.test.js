@@ -1,8 +1,9 @@
 import MockAdapter from "axios-mock-adapter";
-import {createAPI} from "../../api.js";
-import {reducer, ActionCreator, ActionType, Operation} from "./comments.js";
+import {createAPI} from "../../api";
+import {reducer, ActionCreator, ActionType, Operation} from "./comments";
+import {noop} from "../../utils";
 
-const api = createAPI(() => {});
+const api = createAPI(noop);
 
 const comments = [
   {
@@ -85,8 +86,7 @@ describe(`Operation work correctly`, () => {
 
     apiMock.onGet(`/comments/1`).reply(200, []);
 
-    return commentsLoader(dispatch, () => {
-    }, api).then(() => {
+    return commentsLoader(dispatch, noop, api).then(() => {
       expect(dispatch).toHaveBeenCalledTimes(2);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.GET_COMMENTS,
@@ -112,8 +112,7 @@ describe(`Operation work correctly`, () => {
 
     apiMock.onPost(`/comments/1`).reply(200, []);
 
-    return commentsCreator(dispatch, () => {
-    }, api).then(() => {
+    return commentsCreator(dispatch, noop, api).then(() => {
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: ActionType.GET_COMMENTS,

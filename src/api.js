@@ -1,5 +1,5 @@
 import axios from "axios";
-import history from "./history.js";
+import history from "./history";
 
 const TIMEOUT = 5000;
 const BASE_URL = `https://htmlacademy-react-3.appspot.com/wtw`;
